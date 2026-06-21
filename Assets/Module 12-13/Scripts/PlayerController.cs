@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _horizontalForce;
     [SerializeField] private float _vertikalForce;
+    [SerializeField] private Transform _playerVisual;
     
     private Rigidbody _rigidbody;
     private Vector3 _direction;
@@ -21,9 +22,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        
+        if (direction.magnitude > _deadZone)
+            _direction = _playerVisual.TransformDirection(direction);
 
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
             _jumping = true;
     }
 

@@ -7,15 +7,19 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _cameraSpeed;
+    [SerializeField]private Rigidbody _playerRigidbody;
 
     private Vector3 _offset;
 
-    private void Start() => _offset = transform.position;
+    private void Start()
+    {
+        _offset = transform.position;
+    }
 
     private void LateUpdate()
     {
-       // transform.RotateAround(_target.position, Vector3.up, _cameraSpeed * Time.deltaTime);
-        
-        transform.position = _target.position + _offset;
+        transform.position = _target.position + _target.rotation*_offset;
+       
+        transform.LookAt(_target);
     }
 }
