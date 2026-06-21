@@ -11,15 +11,11 @@ public class CameraController : MonoBehaviour
 
     private Vector3 _offset;
 
-    private void Start()
-    {
-        _offset = transform.position;
-    }
+    private void Start() => _offset = transform.position;
 
     private void LateUpdate()
     {
         transform.position = _target.position + _target.rotation*_offset;
-       
         transform.LookAt(_target);
     }
 }

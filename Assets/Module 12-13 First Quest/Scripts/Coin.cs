@@ -17,8 +17,5 @@ public class Coin : MonoBehaviour
         _rotationSpeed = Random.Range(_minRotationSpeed, _maxRotationSpeed);
     }
 
-    private void Update()
-    {
-        transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
-    }
+    private void Update() => transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime);
 }
