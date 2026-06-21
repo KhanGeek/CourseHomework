@@ -9,7 +9,7 @@ public class PlayerVisual : MonoBehaviour
     [SerializeField] private PlayerController _player;
 
     private Vector3 _offset;
-    private float _rotationSpeed = 100f;
+    private float _rotationSpeed = 60f;
     
     private void Start() => _offset = new Vector3(0f, transform.localScale.y / 2, 0f);
 

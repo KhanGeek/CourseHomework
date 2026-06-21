@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _direction;
     private float _deadZone = 0.05f;
     private bool _jumping;
+    private bool _canJump;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
         if (direction.magnitude > _deadZone)
             _direction = _playerVisual.TransformDirection(direction);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && _canJump)
             _jumping = true;
     }
 
@@ -44,6 +45,10 @@ public class PlayerController : MonoBehaviour
             _jumping = false;
         }
     }
+
+    private void OnCollisionEnter(Collision other) => _canJump = true;
+
+    private void OnCollisionExit(Collision collision) => _canJump = false;
 
     public Vector3 GetDirection() => _direction;
 }
