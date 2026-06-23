@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particle: {fileID: 5438288598739070507, guid: af0d06ad2f476cc43be23ac0f464a510,
     type: 3}
+  _bulletPrefab: {fileID: 1334785348537747446, guid: 9908846218756449e8fd2d48c074aee7,
+    type: 3}
+  _bulletSpeed: 30
 --- !u!33 &6726531851090262260
 MeshFilter:
   m_ObjectHideFlags: 0
