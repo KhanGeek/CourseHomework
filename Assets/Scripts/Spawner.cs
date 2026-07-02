@@ -8,6 +8,12 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        EnemyController enemyController=Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+        enemyController.Initialized(SelectIdleBehavior(), SelectReactBehavior());
+    }
+
+    private IIdleBehavior SelectIdleBehavior()
+    {
         IIdleBehavior idleBehavior;
 
         switch (_idleBehaviorEnum)
@@ -30,7 +36,33 @@ public class Spawner : MonoBehaviour
                 break;
         }
         
-        EnemyController enemyController=Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        enemyController.Initialized(idleBehavior);
+        return idleBehavior;
+    }
+
+    private IReactionBehavior SelectReactBehavior()
+    {
+        IReactionBehavior reactionBehavior;
+
+        switch (_reactBehaviorEnum)
+        {
+            case ReactBehaviorEnum.Escape:
+                reactionBehavior = new ReactEscapeBehevior();
+                break;
+            
+            case ReactBehaviorEnum.Destroy:
+                reactionBehavior = new ReactDestroyBehavior();
+                break;
+            
+            case ReactBehaviorEnum.Pursuit:
+                reactionBehavior = new ReactPursuitBehavior();
+                break;
+            
+            default:
+                reactionBehavior = null;
+                Debug.LogError("Invalid reaction behavior");
+                break;
+        }
+        
+        return reactionBehavior;
     }
 }
