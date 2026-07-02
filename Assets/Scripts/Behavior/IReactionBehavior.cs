@@ -1,4 +1,4 @@
 public interface IReactionBehavior
 {
-    void Reaction();
+    void Update();
 }

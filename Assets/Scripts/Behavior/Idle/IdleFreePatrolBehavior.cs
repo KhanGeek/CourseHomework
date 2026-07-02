@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleFreePatrolBehavior : MonoBehaviour
+public class IdleFreePatrolBehavior : IIdleBehavior
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector3 _currentPoint;
 
-    // Update is called once per frame
-    void Update()
+    private void SetNextPoint() =>
+        _currentPoint = new Vector3(Random.Range(-Constants.MinPositionRange, Constants.MaxPositionRange),
+            0, Random.Range(-Constants.MinPositionRange, Constants.MaxPositionRange));
+
+    public void Update(Transform transform, ref Vector3 direction)
     {
+        if ((_currentPoint - transform.position).magnitude <= Constants.MinDistance)
+            SetNextPoint();
         
+        direction = _currentPoint - transform.position;
     }
 }

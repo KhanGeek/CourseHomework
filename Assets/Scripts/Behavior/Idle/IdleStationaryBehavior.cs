@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleStat : MonoBehaviour
+public class IdleStationaryBehavior : IIdleBehavior
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Update(Transform transform, ref Vector3 direction)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return;
     }
 }
