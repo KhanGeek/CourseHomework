@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class WaypointsManager : MonoBehaviour
 {
-    public static List<Transform>  Waypoints = new List<Transform>();
+    public static List<Transform>  Waypoints;
 
-    public static void AddWaypoint(Transform transform) => Waypoints.Add(transform);
+    static WaypointsManager()
+    {
+        Waypoints = new List<Transform>();
+    }
 }

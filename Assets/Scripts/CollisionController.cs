@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CollisionController : MonoBehaviour
@@ -21,8 +17,5 @@ public class CollisionController : MonoBehaviour
             _enemyController.ReactDisabled();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, _collider.radius);
-    }
+    private void OnDrawGizmos() => Gizmos.DrawWireSphere(transform.position, _collider.radius);
 }

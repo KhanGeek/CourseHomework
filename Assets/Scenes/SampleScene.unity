@@ -388,12 +388,12 @@ PrefabInstance:
     - target: {fileID: 3389887604872878418, guid: 704aecf033c984f26916a2295da655d5,
         type: 3}
       propertyPath: _idleBehaviorEnum
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3389887604872878418, guid: 704aecf033c984f26916a2295da655d5,
         type: 3}
       propertyPath: _reactBehaviorEnum
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8315708772960495402, guid: 704aecf033c984f26916a2295da655d5,
         type: 3}
