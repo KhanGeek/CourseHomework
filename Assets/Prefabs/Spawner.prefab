@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idleBehaviorEnum: 0
   _reactBehaviorEnum: 0
-  _enemyPrefab: {fileID: 0}
+  _enemyPrefab: {fileID: 3613384139921127962, guid: f90e4bc2df71a4ddc84fef0152fb5a6e,
+    type: 3}

@@ -193,7 +193,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 4
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &4318065473807746823
 MonoBehaviour:
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyController: {fileID: 3613384139921127962}
+  _collider: {fileID: 4102095500351388156}
 --- !u!1 &7389857268551678197
 GameObject:
   m_ObjectHideFlags: 0
