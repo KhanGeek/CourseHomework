@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : InputBehavior
@@ -5,6 +6,7 @@ public class EnemyController : InputBehavior
     private IIdleBehavior _idleBehavior;
     private IReactionBehavior _reactionBehavior;
     private bool _isReacting;
+    private List<Transform> _waypoints;
 
     private void Update()
     {
@@ -14,10 +16,11 @@ public class EnemyController : InputBehavior
         }
     }
     
-    public void Initialized(IIdleBehavior idleBehavior, IReactionBehavior reactionBehavior)
+    public void Initialized(IIdleBehavior idleBehavior, IReactionBehavior reactionBehavior, List<Transform> waypoints)
     {
         _idleBehavior = idleBehavior;
         _reactionBehavior = reactionBehavior;
+        _waypoints = waypoints;
     }
 
     public void Destroy() => Destroy(gameObject);
@@ -29,4 +32,6 @@ public class EnemyController : InputBehavior
     }
 
     public void ReactDisabled() => _isReacting = false;
+    
+    public List<Transform> GetWaypoints() => _waypoints;
 }

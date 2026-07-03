@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -5,11 +6,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private IdleBehaviorEnum _idleBehaviorEnum;
     [SerializeField] private ReactBehaviorEnum _reactBehaviorEnum;
     [SerializeField] private EnemyController _enemyPrefab;
+    [SerializeField] private List<Transform> _waypoints;
 
     private void Start()
     {
         EnemyController enemyController=Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        enemyController.Initialized(SelectIdleBehavior(), SelectReactBehavior());
+        enemyController.Initialized(SelectIdleBehavior(), SelectReactBehavior(), _waypoints);
     }
 
     private IIdleBehavior SelectIdleBehavior()

@@ -10,7 +10,7 @@ public class IdleWaypointPatrolBehavior : IIdleBehavior
     {
         if (_waypoints == null)
         {
-            _waypoints = WaypointsManager.Waypoints;
+            _waypoints = transform.GetComponent<EnemyController>().GetWaypoints();
             _currentWaypointIndex = 0;
         }
 
