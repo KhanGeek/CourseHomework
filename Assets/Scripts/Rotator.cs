@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Rotator : ChangerObjectTransform
+public class Rotator : ChangerObjectRigitbody
 {
     protected override void FixedUpdate()
     {

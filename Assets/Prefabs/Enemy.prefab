@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c53fa987e804be3b6c684bf8563cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collisionController: {fileID: 4318065473807746823}
+  _destroyVisual: {fileID: 3166953780451665639}
 --- !u!135 &2116017329967764343
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -127,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputBehavior: {fileID: 3613384139921127962}
-  _speed: 4
+  Speed: 5
 --- !u!114 &8362481299870745053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5051d1f9fb0544a48ae9caaa6b1e94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyController: {fileID: 3613384139921127962}
   _collider: {fileID: 4102095500351388156}
 --- !u!1 &7389857268551678197
 GameObject:

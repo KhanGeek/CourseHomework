@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public abstract class ChangerObjectTransform : MonoBehaviour
+public abstract class ChangerObjectRigitbody : MonoBehaviour
 {
     [SerializeField] protected InputBehavior _inputBehavior;
 

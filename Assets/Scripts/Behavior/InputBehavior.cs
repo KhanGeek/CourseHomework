@@ -2,13 +2,13 @@ using UnityEngine;
 
 public abstract class InputBehavior : MonoBehaviour
 {
-    protected Vector3 _direction;
+    protected Vector3 Direction;
 
     public bool IsMoving(out Vector3 direction)
     {
-        if (_direction.magnitude > Constants.DeadZone)
+        if (Direction.magnitude > Constants.InputDeadZone)
         {
-            direction = _direction;
+            direction = Direction;
             return true;
         }
         

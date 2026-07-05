@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    [SerializeField] private EnemyController _enemyController;
     [SerializeField] private SphereCollider _collider;
 
-    private void OnTriggerStay(Collider other)
+    public bool IsPlayerDetected { get; private set; }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent(out PlayerInput playerInput))
-            _enemyController.ReactActive(playerInput.transform);
+            IsPlayerDetected = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.TryGetComponent(out PlayerInput playerInput))
-            _enemyController.ReactDisabled();
+            IsPlayerDetected = false;
     }
 
     private void OnDrawGizmos() => Gizmos.DrawWireSphere(transform.position, _collider.radius);

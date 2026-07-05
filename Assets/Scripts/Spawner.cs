@@ -1,70 +1,75 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private IdleBehaviorEnum _idleBehaviorEnum;
-    [SerializeField] private ReactBehaviorEnum _reactBehaviorEnum;
     [SerializeField] private EnemyController _enemyPrefab;
-    [SerializeField] private List<Transform> _waypoints;
+    [SerializeField] private List<SpawnPoint> _spawnPoints;
+    [SerializeField] List<Transform> _waypointsList;
+    [SerializeField] private Collider _groundCollider;
+    [SerializeField] private Transform _playerTransform;
 
     private void Start()
     {
-        EnemyController enemyController=Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        enemyController.Initialized(SelectIdleBehavior(), SelectReactBehavior(), _waypoints);
+        foreach (var spawnPoint in _spawnPoints)
+            SpawnEnemy(spawnPoint);
     }
 
-    private IIdleBehavior SelectIdleBehavior()
+    private Queue<Vector3> GetWaypointsQueue()
     {
-        IIdleBehavior idleBehavior;
+        Queue<Vector3> queue = new Queue<Vector3>();
+        
+        foreach (var waypoints in _waypointsList)
+            queue.Enqueue(waypoints.position);
+        
+        return queue;
+    }
 
-        switch (_idleBehaviorEnum)
+    private void SpawnEnemy(SpawnPoint spawnPoint)
+    {
+        EnemyController enemyController=Instantiate(_enemyPrefab, spawnPoint.GetTransform().position, Quaternion.identity);
+
+        enemyController.Initialize(SelectBehavior(spawnPoint.GetIdleBehavior(), enemyController),
+            SelectBehavior(spawnPoint.GetReactionBehavior(), enemyController));
+    }
+
+    private IBehavior SelectBehavior(Behaviors selectedBehavior, EnemyController enemyController)
+    {
+        IBehavior behavior;
+
+        switch (selectedBehavior)
         {
-            case IdleBehaviorEnum.Stationary:
-                idleBehavior = new IdleStationaryBehavior();
+            case Behaviors.Stationary:
+                behavior = new StationaryBehavior();
                 break;
             
-            case IdleBehaviorEnum.WaypointPatrol:
-                idleBehavior = new IdleWaypointPatrolBehavior();
+            case Behaviors.WaypointPatrol:
+                behavior = new WaypointPatrolBehavior(GetWaypointsQueue(), enemyController.transform);
                 break;
             
-            case IdleBehaviorEnum.FreePatrol:
-                idleBehavior = new IdleFreePatrolBehavior();
+            case Behaviors.FreePatrol:
+                behavior = new FreePatrolBehavior(enemyController.transform, _groundCollider.bounds);
+                break;
+            
+            case Behaviors.Escape:
+                behavior = new EscapeBehevior(enemyController.transform, _playerTransform);
+                break;
+            
+            case Behaviors.Destroy:
+                behavior = new DestroyBehavior(enemyController);
+                break;
+            
+            case Behaviors.Pursuit:
+                behavior = new PursuitBehavior(enemyController.transform, _playerTransform);
                 break;
             
             default:
-                idleBehavior = null;
-                Debug.LogError("Invalid idle behavior");
+                behavior = null;
+                Debug.LogError("Invalid behavior");
                 break;
         }
         
-        return idleBehavior;
-    }
-
-    private IReactionBehavior SelectReactBehavior()
-    {
-        IReactionBehavior reactionBehavior;
-
-        switch (_reactBehaviorEnum)
-        {
-            case ReactBehaviorEnum.Escape:
-                reactionBehavior = new ReactEscapeBehevior();
-                break;
-            
-            case ReactBehaviorEnum.Destroy:
-                reactionBehavior = new ReactDestroyBehavior();
-                break;
-            
-            case ReactBehaviorEnum.Pursuit:
-                reactionBehavior = new ReactPursuitBehavior();
-                break;
-            
-            default:
-                reactionBehavior = null;
-                Debug.LogError("Invalid reaction behavior");
-                break;
-        }
-        
-        return reactionBehavior;
+        return behavior;
     }
 }
