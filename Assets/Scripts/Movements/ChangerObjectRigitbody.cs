@@ -4,18 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class ChangerObjectRigitbody : MonoBehaviour
 {
-    [SerializeField] protected InputBehavior _inputBehavior;
+    [SerializeField] protected InputBehavior InputBehavior;
 
-    protected Rigidbody _rigidbody;
+    protected Rigidbody Rigidbody;
 
     private void Awake()
     {
-        if (_inputBehavior == null)
+        if (InputBehavior == null)
             Debug.LogError("Mover needs an IInputBehavior component");
 
-        _rigidbody = GetComponent<Rigidbody>();
+        Rigidbody = GetComponent<Rigidbody>();
 
-        if (_rigidbody == null)
+        if (Rigidbody == null)
             Debug.LogError("Mover needs a Rigidbody component");
     }
 

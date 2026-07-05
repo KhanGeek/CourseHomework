@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdad0089851c45a5b4196bec3c3dee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputBehavior: {fileID: 3613384139921127962}
+  InputBehavior: {fileID: 3613384139921127962}
   Speed: 5
 --- !u!114 &8362481299870745053
 MonoBehaviour:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee8172167d4d4b5c8be6c1b18343f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputBehavior: {fileID: 3613384139921127962}
+  InputBehavior: {fileID: 3613384139921127962}
 --- !u!1 &6177428808816180130
 GameObject:
   m_ObjectHideFlags: 0
