@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -18,5 +19,5 @@ public abstract class ChangerObjectRigitbody : MonoBehaviour
             Debug.LogError("Mover needs a Rigidbody component");
     }
 
-    protected abstract void FixedUpdate();
+    protected abstract void Update();
 }
