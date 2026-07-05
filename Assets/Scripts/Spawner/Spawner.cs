@@ -5,8 +5,10 @@ using UnityEngine.Serialization;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private EnemyController _enemyPrefab;
+    
     [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] List<Transform> _waypointsList;
+    
     [SerializeField] private Collider _groundCollider;
     [SerializeField] private Transform _playerTransform;
 
