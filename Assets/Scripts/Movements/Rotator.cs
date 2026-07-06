@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class Rotator : ChangerObjectRigitbody
+public class Rotator : ChangerObjectRigitbody, ITransformable
 {
-    protected override void Update()
-    {
-        if (InputBehavior.IsMoving(out Vector3 direction))
-            Rigidbody.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
-    }
+    public void ApplyMovement(Vector3 direction) => 
+        Rigidbody.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
 }

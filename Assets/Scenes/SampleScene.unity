@@ -1417,7 +1417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdad0089851c45a5b4196bec3c3dee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputBehavior: {fileID: 2080287467}
   Speed: 10
 --- !u!114 &2080287467
 MonoBehaviour:
@@ -1431,6 +1430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11deefd6ad9b24f8c9ae33dc677bb999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mover: {fileID: 2080287466}
+  _rotator: {fileID: 2080287471}
 --- !u!136 &2080287468
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1509,7 +1510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee8172167d4d4b5c8be6c1b18343f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputBehavior: {fileID: 2080287467}
 --- !u!1 &2086701466
 GameObject:
   m_ObjectHideFlags: 0

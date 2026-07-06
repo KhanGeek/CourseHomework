@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : InputBehavior
+public class EnemyController : MonoBehaviour
 {
     [SerializeField] private CollisionController _collisionController;
     [SerializeField] private DestroyVisual _destroyVisual;
     
-    private IBehavior _idleBehavior;
-    private IBehavior _reactionBehavior;
-    private IBehavior _currentBehavior;
+    private IMovementBehavior _idleMovementBehavior;
+    private IMovementBehavior _reactionMovementBehavior;
+    private IMovementBehavior _currentMovementBehavior;
 
     private void Update()
     {
@@ -17,17 +17,17 @@ public class EnemyController : InputBehavior
         else
             SetActiveIdleBehavior();
         
-        Direction = _currentBehavior.Update();
+        _currentMovementBehavior.Step();
     }
 
-    private void SetActiveIdleBehavior() => _currentBehavior = _idleBehavior;
+    private void SetActiveIdleBehavior() => _currentMovementBehavior = _idleMovementBehavior;
 
-    private void SetActiveReactionBehavior() => _currentBehavior = _reactionBehavior;
+    private void SetActiveReactionBehavior() => _currentMovementBehavior = _reactionMovementBehavior;
 
-    public void Initialize(IBehavior idleBehavior, IBehavior reactionBehavior)
+    public void Initialize(IMovementBehavior idleMovementBehavior, IMovementBehavior reactionMovementBehavior)
     {
-        _idleBehavior = idleBehavior;
-        _reactionBehavior = reactionBehavior;
+        _idleMovementBehavior = idleMovementBehavior;
+        _reactionMovementBehavior = reactionMovementBehavior;
     }
 
     public void Destroy()

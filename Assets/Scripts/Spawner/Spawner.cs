@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     
     [SerializeField] private Collider _groundCollider;
     [SerializeField] private Transform _playerTransform;
+    
 
     private void Start()
     {
@@ -28,6 +29,23 @@ public class Spawner : MonoBehaviour
         return queue;
     }
 
+    private List<ITransformable> GetTransformables(EnemyController enemyController)
+    {
+        List<ITransformable> transformables = new List<ITransformable>();
+
+        ITransformable mover = enemyController.GetComponent<Mover>();
+
+        if (mover != null)
+            transformables.Add(mover);
+
+        ITransformable rotator = enemyController.GetComponent<Rotator>();
+
+        if (rotator != null)
+            transformables.Add(rotator);
+
+        return transformables;
+    }
+
     private void SpawnEnemy(SpawnPoint spawnPoint)
     {
         EnemyController enemyController=Instantiate(_enemyPrefab, spawnPoint.GetTransform().position, Quaternion.identity);
@@ -36,42 +54,45 @@ public class Spawner : MonoBehaviour
             SelectBehavior(spawnPoint.GetReactionBehavior(), enemyController));
     }
 
-    private IBehavior SelectBehavior(Behaviors selectedBehavior, EnemyController enemyController)
+    private IMovementBehavior SelectBehavior(Behaviors selectedBehavior, EnemyController enemyController)
     {
-        IBehavior behavior;
+        IMovementBehavior movementBehavior;
 
         switch (selectedBehavior)
         {
             case Behaviors.Stationary:
-                behavior = new StationaryBehavior();
+                movementBehavior = new StationaryMovementBehavior();
                 break;
-            
+
             case Behaviors.WaypointPatrol:
-                behavior = new WaypointPatrolBehavior(GetWaypointsQueue(), enemyController.transform);
+                movementBehavior = new WaypointPatrolMovementBehavior(GetWaypointsQueue(), enemyController.transform,
+                    GetTransformables(enemyController));
                 break;
-            
+
             case Behaviors.FreePatrol:
-                behavior = new FreePatrolBehavior(enemyController.transform, _groundCollider.bounds);
+                movementBehavior = new FreePatrolMovementBehavior(enemyController.transform, _groundCollider.bounds,
+                    GetTransformables(enemyController));
                 break;
-            
+
             case Behaviors.Escape:
-                behavior = new EscapeBehevior(enemyController.transform, _playerTransform);
+                movementBehavior = new EscapeBehevior(enemyController.transform, _playerTransform, GetTransformables(enemyController));
                 break;
-            
+
             case Behaviors.Destroy:
-                behavior = new DestroyBehavior(enemyController);
+                movementBehavior = new DestroyMovementBehavior(enemyController);
                 break;
-            
+
             case Behaviors.Pursuit:
-                behavior = new PursuitBehavior(enemyController.transform, _playerTransform);
+                movementBehavior =
+                    new PursuitMovementBehavior(enemyController.transform, _playerTransform, GetTransformables(enemyController));
                 break;
-            
+
             default:
-                behavior = null;
+                movementBehavior = null;
                 Debug.LogError("Invalid behavior");
                 break;
         }
-        
-        return behavior;
+
+        return movementBehavior;
     }
 }

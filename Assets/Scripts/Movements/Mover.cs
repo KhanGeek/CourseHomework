@@ -1,13 +1,9 @@
 using UnityEngine;
 
-public class Mover : ChangerObjectRigitbody
+public class Mover : ChangerObjectRigitbody, ITransformable
 {
     [SerializeField] protected float Speed;
 
-    protected override void Update()
-    {
-        if (InputBehavior.IsMoving(out Vector3 direction))
-            Rigidbody.MovePosition(
-                Rigidbody.position + direction.normalized * (Speed * Time.deltaTime));
-    }
+    public void ApplyMovement(Vector3 direction) => 
+        Rigidbody.MovePosition(Rigidbody.position + direction.normalized * (Speed * Time.deltaTime));
 }
