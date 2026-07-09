@@ -17,7 +17,7 @@ public class GrabEffect : IRaycastEffect
                 _grabbable.StartGrab(hit.point);
             else
             {
-                _grabbable.UpdateGrab(hit);
+                _grabbable.UpdateGrab(hit.point);
             }
         }
     }
