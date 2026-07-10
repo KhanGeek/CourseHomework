@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrabEffect : IRaycastEffect
 {
     private IGrabbable _grabbable;
+    
+    public bool IsGrabbableObject => _grabbable != null;
 
     public void Lounch(RaycastHit hit)
     {
