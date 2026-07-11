@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4034485428740175522}
+  _moveSpeed: 100
 --- !u!1 &6921165903647995965
 GameObject:
   m_ObjectHideFlags: 0
