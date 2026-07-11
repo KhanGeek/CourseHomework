@@ -22,10 +22,8 @@ public class Rotator : MonoBehaviour
             _currentAngle, transform.localRotation.eulerAngles.z);
     }
 
-    private float NormalizeYRotation(float angle)
-    {
-        return _limitRotation90Deg
+    private float NormalizeYRotation(float angle) =>
+        _limitRotation90Deg
             ? Mathf.Clamp(angle, -90f, 90f)
             : Mathf.Repeat(angle, 360f);
-    }
 }

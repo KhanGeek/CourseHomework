@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _windController: {fileID: 1889695386}
-  _arrowPrefab: {fileID: 828854124}
+  _arrowPrefab: {fileID: 828854125}
 --- !u!1 &327855843
 GameObject:
   m_ObjectHideFlags: 3
