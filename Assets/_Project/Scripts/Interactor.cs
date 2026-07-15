@@ -1,61 +1,65 @@
 using System;
 using UnityEngine;
+using Input = UnityEngine.Windows.Input;
 
 public class Interactor : MonoBehaviour
 {
-    private const int LeftMouseButton = 0;
-    private const int RightMouseButton = 1;
+    [SerializeField] private CameraSwitcher _cameraSwitcher;
     
-    private Raycaster _raycaster;
     private IInputService _inputService;
     
     private GrabEffect _grabEffect;
-
+    private ExplosionEffect _explosionEffect;
+    
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
     [SerializeField] private ParticleSystem _explosionParticle;
 
     private void Awake()
     {
-        _raycaster = new Raycaster();
         _inputService = new PlayerInput();
+        _explosionEffect = new ExplosionEffect(_explosionRadius, _explosionForce, _explosionParticle);
+    }
+
+    private void Start()
+    {
+        _cameraSwitcher.Initialize(_inputService);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(LeftMouseButton))
+        if (_inputService.PullObject())
         {
+
             if (_grabEffect == null)
             {
-                _grabEffect = new GrabEffect();
-                _raycaster.StartEffect(_grabEffect, _raycaster.EmitRay(GetRayFromScreenPoint()));
-
-                if (_grabEffect.IsGrabbableObject == false)
+                if (Physics.Raycast(_inputService.GetRayFromScreenPoint(), out RaycastHit grabHit))
                 {
-                    _grabEffect = null;
-                    return;
+                    IGrabbable grabbable = grabHit.collider.GetComponent<IGrabbable>();
+
+                    if (grabbable != null)
+                    {
+                        _grabEffect = new GrabEffect(grabbable);
+                        _grabEffect.Start();
+                    }
                 }
             }
             else
             {
-                _grabEffect.Lounch(_raycaster.EmitRay(GetRayFromScreenPoint()));
+                _grabEffect.Update(_inputService.GetRayFromScreenPoint());
             }
+
         }
 
-        if (Input.GetMouseButtonUp(LeftMouseButton))
+        if (_inputService.ThrowObject() && _grabEffect != null)
         {
+            _grabEffect.Stop();
             _grabEffect = null;
         }
         
-        if (Input.GetMouseButtonDown(RightMouseButton))
+        if (_inputService.BlowUp() && Physics.Raycast(_inputService.GetRayFromScreenPoint(), out RaycastHit explosionHit))
         {
-            _raycaster.StartEffect(new ExplosionEffect(_explosionRadius, _explosionForce), 
-                _raycaster.EmitRay(GetRayFromScreenPoint()));
-            
-            Instantiate(_explosionParticle, _raycaster.EmitRay(GetRayFromScreenPoint()).point, Quaternion.identity);
-            //оказалось что Instantiate наследуется от монобеха, а как прокинуть его до эффекта я не знаю(
+            _explosionEffect.Explosion(explosionHit.point);
         }
     }
-
-    private Ray GetRayFromScreenPoint() => Camera.main.ScreenPointToRay(_inputService.GetInputPosition());
 }

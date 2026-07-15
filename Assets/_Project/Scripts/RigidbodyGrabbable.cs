@@ -4,50 +4,32 @@ using UnityEngine;
 public class RigidbodyGrabbable : MonoBehaviour, IGrabbable
 {
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _yOffset = 1f;
+    [SerializeField] private float _moveSpeed;
 
     private bool _grabbed;
-    
-    private float _grabTimer = 0.25f;
-    private float _currentGrabTimer;
 
-    [SerializeField] private float _moveSpeed;
-    private float _startGrabPositionY;
-    private float _yOffset = 1f;
-    
-
-    private void Update()
-    {
-        if (_grabbed)
-            _currentGrabTimer -= Time.deltaTime;
-        
-        if(_currentGrabTimer <= 0)
-            StopGrab();
-    }
-    
     public bool IsGrabbed() => _grabbed;
     
-    public void StartGrab(Vector3 position)
+    public void StartGrab()
     {
         if (_grabbed)
             return;
-        
-        _startGrabPositionY = _rigidbody.position.y;
-        _currentGrabTimer = _grabTimer;
         
         _rigidbody.useGravity = false;
         _rigidbody.isKinematic = true;
         _grabbed = true;
+        
+        _rigidbody.position=new  Vector3(_rigidbody.position.x, _rigidbody.position.y+_yOffset, _rigidbody.position.z);
     }
 
-    public void UpdateGrab(Vector3 position)
+    public void UpdateGrab(Vector3 nextPosition)
     {
         if (_grabbed == false)
             return;
-        
-        _currentGrabTimer = _grabTimer;
 
-        Vector3 nextPosition = new Vector3(position.x, _startGrabPositionY + _yOffset, position.z);
-        _rigidbody.MovePosition(Vector3.Lerp(transform.position, nextPosition, Time.deltaTime * _moveSpeed));
+        nextPosition.y = _rigidbody.position.y;
+        _rigidbody.MovePosition(Vector3.Lerp(_rigidbody.position, nextPosition, Time.deltaTime * _moveSpeed));
     }
 
     public void StopGrab()
@@ -56,4 +38,6 @@ public class RigidbodyGrabbable : MonoBehaviour, IGrabbable
         _rigidbody.isKinematic = false;
         _grabbed = false;
     }
+
+    public Vector3 GetPosition() => _rigidbody.position;
 }

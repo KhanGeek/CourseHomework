@@ -3179,6 +3179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd25d98ef2cd428fb5ae700718fa3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraSwitcher: {fileID: 1112507708}
   _explosionRadius: 4
   _explosionForce: 10
   _explosionParticle: {fileID: 6440006556408756866, guid: a98aec773cab24876ab002d1407321da,
