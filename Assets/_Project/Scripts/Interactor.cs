@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Input = UnityEngine.Windows.Input;
 
 public class Interactor : MonoBehaviour
 {
@@ -21,10 +19,7 @@ public class Interactor : MonoBehaviour
         _explosionEffect = new ExplosionEffect(_explosionRadius, _explosionForce, _explosionParticle);
     }
 
-    private void Start()
-    {
-        _cameraSwitcher.Initialize(_inputService);
-    }
+    private void Start() => _cameraSwitcher.Initialize(_inputService);
 
     private void Update()
     {
