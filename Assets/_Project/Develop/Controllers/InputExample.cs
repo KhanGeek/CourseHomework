@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class InputExample : MonoBehaviour
@@ -9,7 +8,10 @@ public class InputExample : MonoBehaviour
 
     private void Awake()
     {
-        _characterController = new RandomAICharacterController(_character, 2f);
+        _characterController = new CombinateController(
+            new PlayerRotatableCharacterController(_character),
+            new PlayerMovableCharacterController(_character));
+        
         _characterController.Enable();
     }
 

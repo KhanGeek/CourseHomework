@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IMovable, IRotatable
 {
     private DirectionalMover _mover;
     private DirectionalRotator _rotator;
