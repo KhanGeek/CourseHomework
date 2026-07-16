@@ -19,12 +19,11 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-        Vector3 inputDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        
-        _mover.SetInputDirection(inputDirection);
-        _rotator.SetInputDirection(inputDirection);
-        
         _mover.Update(Time.deltaTime);
         _rotator.Update(Time.deltaTime);
     }
+    
+    public void SetMoveDirection(Vector3 inputDirection) => _mover.SetInputDirection(inputDirection);
+    
+    public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 }
