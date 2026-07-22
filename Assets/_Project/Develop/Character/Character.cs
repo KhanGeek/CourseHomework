@@ -11,6 +11,8 @@ public class Character : MonoBehaviour, IMovable, IRotatable
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
     public Quaternion CurrentRotation => _rotator.CurrentRotation;
     
+    public Vector3 Position => transform.position;
+
     private void Awake()
     {
         _mover = new DirectionalMover(GetComponent<CharacterController>(), _moveSpeed);
@@ -22,8 +24,8 @@ public class Character : MonoBehaviour, IMovable, IRotatable
         _mover.Update(Time.deltaTime);
         _rotator.Update(Time.deltaTime);
     }
-    
+
     public void SetMoveDirection(Vector3 inputDirection) => _mover.SetInputDirection(inputDirection);
-    
+
     public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
 }

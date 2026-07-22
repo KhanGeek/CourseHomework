@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7511558181221131132}
   - component: {fileID: 7783057112447377475}
   - component: {fileID: 1209495320054043491}
+  - component: {fileID: 8642475013453858884}
   m_Layer: 0
   m_Name: barrier_corner
   m_TagString: Untagged
@@ -127,3 +128,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6580529, y: 3.1161594, z: 2.394975}
   m_Center: {x: -0.06594843, y: 1.5580795, z: 0.8025125}
+--- !u!114 &8642475013453858884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149155446097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
