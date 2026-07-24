@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -8,7 +9,8 @@ public class Bomb : MonoBehaviour
     [SerializeField] private float _timeToExplode;
     private float currentTime;
 
-
+    [SerializeField] private BombVisual _bombVisual;
+    
     private bool _isActive;
 
     private void Update()
@@ -21,8 +23,7 @@ public class Bomb : MonoBehaviour
         if (currentTime <= 0)
         {
             Explosion();
-            
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
@@ -39,6 +40,27 @@ public class Bomb : MonoBehaviour
 
     private void Explosion()
     {
-       // Collider[] collider=Physics.SphereCast(transform.position, _explosionRadius, transform.up, out RaycastHit hit);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            IDamageble damageble = collider.GetComponent<IDamageble>();
+
+            if (damageble != null)
+            {
+                damageble.TakeDamage(_damage);
+            }
+        }
+        
+        _bombVisual.Explosion();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(_isActive)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position, _explosionRadius);
+        }
     }
 }

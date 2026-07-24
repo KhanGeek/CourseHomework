@@ -9,9 +9,6 @@ public class Character : MonoBehaviour, IDamageble
     [SerializeField] private HealthVisual _healthVisual;
     private Health _health;
     
-    [SerializeField] private GameObject _inputServiceGameObject;
-    private IInputService _inputService;
-    
     [SerializeField] private CharacterVisual _characterVisual;
     
     [SerializeField] private NavMeshAgent _agent;
@@ -20,14 +17,9 @@ public class Character : MonoBehaviour, IDamageble
 
     private void Awake()
     {
-        _inputService = _inputServiceGameObject.GetComponent<IInputService>();
-        
-        if(_inputService == null)
-            Debug.LogError("Input service not found");
-        
-        _movementController = new CharacterMovementAgentController(_agent, _inputService);
+        _movementController = new CharacterMovementAgentController(_agent);
 
-        _health = new Health(100, 30);
+        _health = new Health(100, 0.3f);
     }
 
     private void Start()
@@ -53,5 +45,13 @@ public class Character : MonoBehaviour, IDamageble
     {
         _health.TakeDamage(damage);
         _characterVisual.Hit();
+    }
+    
+    public void ChangeInputService(IInputService inputService)
+    {
+        _movementController.ChangeInputService(inputService);
+
+        if (inputService is PlayerInput && _health.IsDead == false)
+            _movementController.Update();
     }
 }

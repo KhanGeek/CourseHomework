@@ -5,9 +5,9 @@ public class Health
     private float _currentHealth;
     private float _maxHealth;
 
-    private int _percentageBeforeInjury;
+    private float _percentageBeforeInjury;
 
-    public Health(float maxHealth, int percentageBeforeInjury)
+    public Health(float maxHealth, float percentageBeforeInjury)
     {
         _maxHealth = maxHealth;
         _percentageBeforeInjury = percentageBeforeInjury;
