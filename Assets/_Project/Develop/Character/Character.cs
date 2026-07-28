@@ -4,8 +4,6 @@ using UnityEngine.AI;
 
 public class Character : MonoBehaviour, IDamageble
 {
-    private CharacterMovementAgentController _movementController;
-
     [SerializeField] private HealthVisual _healthVisual;
     private Health _health;
     
@@ -17,8 +15,6 @@ public class Character : MonoBehaviour, IDamageble
 
     private void Awake()
     {
-        _movementController = new CharacterMovementAgentController(_agent);
-
         _health = new Health(100, 0.3f);
     }
 
@@ -26,32 +22,20 @@ public class Character : MonoBehaviour, IDamageble
     {
         _healthVisual.SetHealth(_health);
     }
-
-    private void Update()
-    {
-        if (_health.IsDead)
-        {
-            _characterVisual.Die();
-            return;
-        }
-        
-        _movementController.Update();
-
-        if (_health.IsWounded) 
-            _characterVisual.SetWounded();
-    }
     
     public void TakeDamage(float damage)
     {
         _health.TakeDamage(damage);
         _characterVisual.Hit();
     }
-    
-    public void ChangeInputService(IInputService inputService)
-    {
-        _movementController.ChangeInputService(inputService);
 
-        if (inputService is PlayerInput && _health.IsDead == false)
-            _movementController.Update();
-    }
+    public void Heal(float healAmount) => _health.Heal(healAmount);
+    
+    public void SetDestination(Vector3 destination) => _agent.SetDestination(destination);
+
+    public NavMeshPath GetAgentPath() => _agent.path;
+    
+    public bool IsWounded => _health.IsWounded;
+    
+    public bool IsDead => _health.IsDead;
 }

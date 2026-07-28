@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CharacterMovementAgentController
 {
     private const int MinCornersCount = 1;
-    private NavMeshAgent _agent;
+    
+    private Character _character;
     private IInputService _inputService;
 
     private bool _isMovement;
 
-    public CharacterMovementAgentController(NavMeshAgent agent) => _agent = agent;
+    public CharacterMovementAgentController(Character character) => _character = character;
 
     public void ChangeInputService(IInputService inputService) => _inputService = inputService;
 
@@ -18,6 +18,12 @@ public class CharacterMovementAgentController
         if (_inputService == null)
             return;
 
+        if (_character.IsDead)
+        {
+            _inputService.DestroyVisualTargetPoint();
+            return;
+        }
+        
         if (_inputService.HasAppearedNextTargetPoint())
         {
             SetNextTargetPoint();
@@ -36,11 +42,11 @@ public class CharacterMovementAgentController
         {
             if (_inputService.TryGetNextTargetPoint(out Vector3 targetPoint))
             {
-                _agent.SetDestination(targetPoint);
+                _character.SetDestination(targetPoint);
                 _isMovement = true;
             }
         }
     }
 
-    private bool EnoughCornersCountInPath() => _agent.path.corners.Length > MinCornersCount;
+    private bool EnoughCornersCountInPath() => _character.GetAgentPath().corners.Length > MinCornersCount;
 }

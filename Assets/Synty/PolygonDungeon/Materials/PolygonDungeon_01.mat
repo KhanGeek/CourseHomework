@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PolygonDungeon_01
-  m_Shader: {fileID: -6465566751694194690, guid: 0730dae39bc73f34796280af9875ce14, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 0730dae39bc73f34796280af9875ce14,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -68,7 +69,7 @@ Material:
     m_Floats:
     - _AlphaClip: 1
     - _AlphaToMask: 1
-    - _Alpha_Clip_Threshold: 0.5
+    - _Alpha_Clip_Threshold: 0
     - _BUILTIN_AlphaClip: 1
     - _BUILTIN_Blend: 0
     - _BUILTIN_CullMode: 0
@@ -114,6 +115,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorAlpha_Clip_Threshold: {r: 0.99215686, g: 0.1976005, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _Emission_Color: {r: 1, g: 1, b: 1, a: 1}

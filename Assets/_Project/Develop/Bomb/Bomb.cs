@@ -1,41 +1,24 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private int _damage;
     [SerializeField] private float _explosionRadius;
-
     [SerializeField] private float _timeToExplode;
-    private float currentTime;
-
     [SerializeField] private BombVisual _bombVisual;
+
+    private Coroutine _countdown;
     
-    private bool _isActive;
-
-    private void Update()
-    {
-        if (_isActive == false)
-            return;
-
-        currentTime -= Time.deltaTime;
-
-        if (currentTime <= 0)
-        {
-            Explosion();
-            Destroy(gameObject);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         IDamageble damageble = other.GetComponent<IDamageble>();
 
         if (damageble == null)
             return;
-        
-        _isActive = true;
-        currentTime=_timeToExplode;
+
+        _countdown = StartCoroutine(CountdownToExplosion());
     }
 
     private void Explosion()
@@ -55,9 +38,16 @@ public class Bomb : MonoBehaviour
         _bombVisual.Explosion();
     }
 
+    private IEnumerator CountdownToExplosion()
+    {
+        yield return new WaitForSeconds(_timeToExplode);
+        Explosion();
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmos()
     {
-        if(_isActive)
+        if(_countdown != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(transform.position, _explosionRadius);

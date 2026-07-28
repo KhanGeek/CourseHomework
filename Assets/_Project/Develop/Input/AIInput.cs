@@ -31,6 +31,11 @@ public class AIInput : MonoBehaviour, IInputService
 
     public void DestroyVisualTargetPoint() => _inputVisual.DestroyTargetPoint();
 
+    public bool FirstAidKitSpawnerActive()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void SetNewTimer() => _currentTime = Random.Range(_minChangePointTime, _maxChangePointTime);
 
     private void GetFloorChildrenBound()

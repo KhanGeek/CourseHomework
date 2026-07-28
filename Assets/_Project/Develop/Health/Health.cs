@@ -36,4 +36,15 @@ public class Health
         if (_currentHealth <= 0)
             _currentHealth = 0;
     }
+
+    public void Heal(float healAmount)
+    {
+        if (healAmount < 0)
+        {
+            Debug.LogError("Heal amount is less than 0");
+            return;
+        }
+        
+        _currentHealth += healAmount;
+    }
 }

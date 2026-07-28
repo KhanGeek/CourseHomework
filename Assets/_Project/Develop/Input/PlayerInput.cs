@@ -5,10 +5,15 @@ public class PlayerInput : MonoBehaviour, IInputService
     [SerializeField] private InputVisual _visual;
     [SerializeField] private InputChanger _inputChanger;
 
+    private bool _firstAidKitSpawnerActive;
+    
     private void Update()
     {
         if(HasAppearedNextTargetPoint())
             _inputChanger.PlayerInputActivate();
+
+        if (FirstAidKitSpawnerActiveChange())
+            _firstAidKitSpawnerActive = !_firstAidKitSpawnerActive;
     }
 
     public bool HasAppearedNextTargetPoint() => Input.GetMouseButtonDown(0);
@@ -32,4 +37,8 @@ public class PlayerInput : MonoBehaviour, IInputService
         _visual.DestroyTargetPoint();
         _inputChanger.PlayerInputDeactivate();
     }
+
+    public bool FirstAidKitSpawnerActive() => _firstAidKitSpawnerActive;
+
+    public bool FirstAidKitSpawnerActiveChange() => Input.GetKeyDown(KeyCode.F);
 }

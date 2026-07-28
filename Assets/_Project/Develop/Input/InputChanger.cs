@@ -6,7 +6,7 @@ public class InputChanger : MonoBehaviour
     [SerializeField] private AIInput _AIInput;
     [SerializeField] private PlayerInput _playerInput;
 
-    [SerializeField] private Character _character;
+    [SerializeField] private GameLoop _gameLoop;
 
     [SerializeField] private float _idleTime;
     private float _currentTime;
@@ -24,12 +24,12 @@ public class InputChanger : MonoBehaviour
         _currentTime -= Time.deltaTime;
 
         if (_currentTime <= 0 && _isPlayerInputActive == false) 
-            _character.ChangeInputService(_AIInput);
+            _gameLoop.GetCharacterMovementAgentController().ChangeInputService(_AIInput);
     }
 
     public void PlayerInputActivate()
     {
-        _character.ChangeInputService(_playerInput);
+        _gameLoop.GetCharacterMovementAgentController().ChangeInputService(_playerInput);
         _isPlayerInputActive = true;
     }
 
