@@ -13,9 +13,9 @@ public class Bomb : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        IDamageble damageble = other.GetComponent<IDamageble>();
+        IDamageable damageable = other.GetComponent<IDamageable>();
 
-        if (damageble == null)
+        if (damageable == null)
             return;
 
         _countdown = StartCoroutine(CountdownToExplosion());
@@ -27,11 +27,11 @@ public class Bomb : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            IDamageble damageble = collider.GetComponent<IDamageble>();
+            IDamageable damageable = collider.GetComponent<IDamageable>();
 
-            if (damageble != null)
+            if (damageable != null)
             {
-                damageble.TakeDamage(_damage);
+                damageable.TakeDamage(_damage);
             }
         }
         

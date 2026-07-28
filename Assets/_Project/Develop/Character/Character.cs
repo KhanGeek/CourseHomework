@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Character : MonoBehaviour, IDamageble
+public class Character : MonoBehaviour, IDamageable, ITreatable
 {
     [SerializeField] private HealthVisual _healthVisual;
     private Health _health;

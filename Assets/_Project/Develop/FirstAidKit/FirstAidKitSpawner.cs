@@ -30,7 +30,10 @@ public class FirstAidKitSpawner
     public void Deactivate()
     {
         if (_spawnCoroutine != null)
+        {
             _monoBehaviour.StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
+        }
     }
 
     private void SpawnFirstAidKit(Vector3 position) => GameObject.Instantiate(_firstAidKit, position, Quaternion.identity);

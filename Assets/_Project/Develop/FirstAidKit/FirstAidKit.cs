@@ -6,12 +6,12 @@ public class FirstAidKit : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        IDamageble damageble = other.GetComponent<IDamageble>();
+        ITreatable treatable = other.GetComponent<ITreatable>();
 
-        if (damageble == null)
+        if (treatable == null)
             return;
 
-        damageble.Heal(_healAmount);
+        treatable.Heal(_healAmount);
         
         Destroy(gameObject);
     }

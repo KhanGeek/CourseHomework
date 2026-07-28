@@ -16486,6 +16486,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5195c358327b94ca3a4ecb5ddcc508f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _firstAidKitPrefab: {fileID: 7605391027591334429, guid: 8d339b958143d4bf3aa992820e7e4224,
+    type: 3}
+  _firstAidKitSpawnRadius: 4
+  _firstAidKitTimeToSpawn: 4
   _character: {fileID: 1067510548}
 --- !u!4 &1285780379
 Transform:

@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
+    [SerializeField] private FirstAidKit _firstAidKitPrefab;
+    [SerializeField] private float _firstAidKitSpawnRadius;
+    [SerializeField] private float _firstAidKitTimeToSpawn;
+    
     [SerializeField] private Character _character;
-    private CharacterMovementAgentController _characterMovementAgentController;
+    private CharacterController _characterController;
 
-    private void Start() => _characterMovementAgentController = new CharacterMovementAgentController(_character);
+    private void Start() => _characterController = new CharacterController(_character, 
+        new FirstAidKitSpawner(_firstAidKitSpawnRadius, _firstAidKitTimeToSpawn, _firstAidKitPrefab, _character));
 
-    private void Update() => _characterMovementAgentController.Update();
+    private void Update() => _characterController.Update();
 
-    public CharacterMovementAgentController GetCharacterMovementAgentController() => _characterMovementAgentController;
+    public CharacterController GetCharacterMovementAgentController() => _characterController;
 }

@@ -1,15 +1,20 @@
 using UnityEngine;
 
-public class CharacterMovementAgentController
+public class CharacterController
 {
     private const int MinCornersCount = 1;
     
     private Character _character;
     private IInputService _inputService;
-
+    private FirstAidKitSpawner _firstAidKitSpawner;
+    
     private bool _isMovement;
 
-    public CharacterMovementAgentController(Character character) => _character = character;
+    public CharacterController(Character character, FirstAidKitSpawner firstAidKitSpawner)
+    {
+        _character = character;
+        _firstAidKitSpawner = firstAidKitSpawner;
+    }
 
     public void ChangeInputService(IInputService inputService) => _inputService = inputService;
 
@@ -23,7 +28,7 @@ public class CharacterMovementAgentController
             _inputService.DestroyVisualTargetPoint();
             return;
         }
-        
+
         if (_inputService.HasAppearedNextTargetPoint())
         {
             SetNextTargetPoint();
@@ -34,6 +39,11 @@ public class CharacterMovementAgentController
             _inputService.DestroyVisualTargetPoint();
             _isMovement = false;
         }
+
+        if (_inputService.FirstAidKitSpawnerActive())
+            _firstAidKitSpawner.Activate();
+        else
+            _firstAidKitSpawner.Deactivate();
     }
 
     private void SetNextTargetPoint()
