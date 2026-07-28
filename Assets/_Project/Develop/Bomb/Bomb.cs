@@ -19,6 +19,7 @@ public class Bomb : MonoBehaviour
             return;
 
         _countdown = StartCoroutine(CountdownToExplosion());
+        _bombVisual.StartCountdown();
     }
 
     private void Explosion()

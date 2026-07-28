@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameLoop : MonoBehaviour
@@ -12,7 +10,7 @@ public class GameLoop : MonoBehaviour
     [SerializeField] private Character _character;
     private CharacterController _characterController;
 
-    private void Start() => _characterController = new CharacterController(_character, 
+    private void Awake() => _characterController = new CharacterController(_character, 
         new FirstAidKitSpawner(_firstAidKitSpawnRadius, _firstAidKitTimeToSpawn, _firstAidKitPrefab, _character));
 
     private void Update() => _characterController.Update();

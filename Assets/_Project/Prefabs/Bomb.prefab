@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6879093708190956213}
   - component: {fileID: 926720469612927911}
   - component: {fileID: 708525293363048093}
-  - component: {fileID: 8610896130471375004}
   - component: {fileID: 4613311485789842623}
   m_Layer: 2
   m_Name: Bomb
@@ -72,21 +71,7 @@ MonoBehaviour:
   _damage: 20
   _explosionRadius: 6
   _timeToExplode: 1
-  _bombVisual: {fileID: 8610896130471375004}
---- !u!114 &8610896130471375004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975762588220734531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cf637ce639534efd917913403fdbece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _particles: {fileID: 198202731371243394, guid: 65932b7368590234d8163da03c2055d8,
-    type: 3}
+  _bombVisual: {fileID: 2143214204480940414}
 --- !u!54 &4613311485789842623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,10 +143,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_Ornate_01
       objectReference: {fileID: 0}
-    - target: {fileID: 140248, guid: c44fafd591a0f624c9d8a67a72cc6652, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 486684, guid: c44fafd591a0f624c9d8a67a72cc6652, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -202,16 +183,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64779058866331498, guid: c44fafd591a0f624c9d8a67a72cc6652,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c44fafd591a0f624c9d8a67a72cc6652, type: 3}
+--- !u!114 &2143214204480940414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3576736648343357870, guid: c44fafd591a0f624c9d8a67a72cc6652,
+    type: 3}
+  m_PrefabInstance: {fileID: 3178739787377467600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf637ce639534efd917913403fdbece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3178739787377905100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 486684, guid: c44fafd591a0f624c9d8a67a72cc6652,

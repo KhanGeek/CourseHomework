@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3396174}
   - component: {fileID: 2313020}
   - component: {fileID: 64779058866331498}
-  m_Layer: 0
+  - component: {fileID: 3576736648343357870}
+  m_Layer: 2
   m_Name: SM_Prop_Crate_Ornate_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
+  - {fileID: 2100000, guid: 55023dd6fe31244fe9cf157e56beeee9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,8 +102,22 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43601962981515898, guid: 6df38254ddcf0344f9cabba807dd5ba3, type: 2}
+--- !u!114 &3576736648343357870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cf637ce639534efd917913403fdbece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particles: {fileID: 198202731371243394, guid: 65932b7368590234d8163da03c2055d8,
+    type: 3}
