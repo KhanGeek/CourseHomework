@@ -16617,9 +16617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1277143775}
   - component: {fileID: 1277143773}
-  - component: {fileID: 1277143776}
   - component: {fileID: 1277143778}
-  - component: {fileID: 1277143777}
   m_Layer: 0
   m_Name: InputService
   m_TagString: Untagged
@@ -16641,6 +16639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetPointPrefab: {fileID: 811159468359453646, guid: b8162214d957743b4aa50f392a62cf7f,
     type: 3}
+  _mainCharacterController: {fileID: 1285780378}
 --- !u!4 &1277143775
 Transform:
   m_ObjectHideFlags: 0
@@ -16656,38 +16655,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1277143776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277143772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2396b8e21070240c091616f372cb9973, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputVisual: {fileID: 1277143773}
-  _minChangePointTime: 1
-  _maxChangePointTime: 3
-  _floorParrentGameObject: {fileID: 1264793301}
---- !u!114 &1277143777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277143772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9581f8e531bd4d4c96fcd8ced6ada5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _AIInput: {fileID: 1277143776}
-  _playerInput: {fileID: 1277143778}
-  _gameLoop: {fileID: 1285780378}
-  _idleTime: 4
 --- !u!114 &1277143778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16701,7 +16668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visual: {fileID: 1277143773}
-  _inputChanger: {fileID: 1277143777}
 --- !u!1001 &1279266975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16896,7 +16862,7 @@ GameObject:
   - component: {fileID: 1285780379}
   - component: {fileID: 1285780378}
   m_Layer: 0
-  m_Name: GameLoop
+  m_Name: MainCharacterController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16914,11 +16880,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5195c358327b94ca3a4ecb5ddcc508f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minChangePointTime: 1
+  _maxChangePointTime: 4
+  _floorParrentGameObject: {fileID: 1264793301}
   _firstAidKitPrefab: {fileID: 7605391027591334429, guid: 8d339b958143d4bf3aa992820e7e4224,
     type: 3}
   _firstAidKitSpawnRadius: 4
   _firstAidKitTimeToSpawn: 4
+  _inputVisual: {fileID: 1277143773}
   _character: {fileID: 1067510548}
+  _playerInput: {fileID: 1277143778}
 --- !u!4 &1285780379
 Transform:
   m_ObjectHideFlags: 0

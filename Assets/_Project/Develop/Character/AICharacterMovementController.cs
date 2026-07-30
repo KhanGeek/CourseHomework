@@ -33,6 +33,8 @@ public class AICharacterMovementController : ICharacterMovomentController
 
     public void Update()
     {
+        _currentTime -= Time.deltaTime;
+        
         if (HasAppearedNextTargetPoint())
         {
             SetNextTargetPoint();
