@@ -76,7 +76,7 @@ public class CharacterVisual : MonoBehaviour
         while (progress <= 1)
         {
             _meshRenderer.material.SetFloat(DissolveMaterialParameter, progress);
-            progress += Time.deltaTime * 0.5f;
+            progress += Time.deltaTime * 0.2f;
             yield return null;
         }
     }

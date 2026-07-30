@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -53,7 +52,7 @@ public class Character : MonoBehaviour, IDamageable, ITreatable
     
     public void SetDestination(Vector3 destination)
     {
-        if(IsJump)
+        if(IsJump || IsDead)
             return;
         
         _agent.SetDestination(destination);
