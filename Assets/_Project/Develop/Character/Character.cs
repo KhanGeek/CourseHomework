@@ -4,11 +4,12 @@ using UnityEngine.AI;
 
 public class Character : MonoBehaviour, IDamageable, ITreatable
 {
+    private const int MinCornersCount = 1;
+    
     [SerializeField] private HealthVisual _healthVisual;
     private Health _health;
     
     [SerializeField] private CharacterVisual _characterVisual;
-    
     [SerializeField] private NavMeshAgent _agent;
 
     public float CurrentVelocity => _agent.desiredVelocity.magnitude;
@@ -33,9 +34,11 @@ public class Character : MonoBehaviour, IDamageable, ITreatable
     
     public void SetDestination(Vector3 destination) => _agent.SetDestination(destination);
 
-    public NavMeshPath GetAgentPath() => _agent.path;
+    public bool EnoughCornersCountInPath() => _agent.path.corners.Length > MinCornersCount;
     
     public bool IsWounded => _health.IsWounded;
     
     public bool IsDead => _health.IsDead;
+
+    public Vector3 GetEndPointPosition() => _agent.path.corners[_agent.path.corners.Length - 1];
 }

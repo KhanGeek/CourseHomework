@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour, IInputService
+public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private InputVisual _visual;
-    [SerializeField] private InputChanger _inputChanger;
 
     private bool _firstAidKitSpawnerActive;
     
     private void Update()
     {
-        if(HasAppearedNextTargetPoint())
-            _inputChanger.PlayerInputActivate();
 
         if (FirstAidKitSpawnerActiveChange())
             _firstAidKitSpawnerActive = !_firstAidKitSpawnerActive;
@@ -24,18 +21,10 @@ public class PlayerInput : MonoBehaviour, IInputService
         {
             targetPoint = hit.point;
             
-            _visual.SetNextTargetPoint(targetPoint);
-            
             return true;
         }
         targetPoint = Vector3.zero;
         return false;
-    }
-
-    public void DestroyVisualTargetPoint()
-    {
-        _visual.DestroyTargetPoint();
-        _inputChanger.PlayerInputDeactivate();
     }
 
     public bool FirstAidKitSpawnerActive() => _firstAidKitSpawnerActive;
