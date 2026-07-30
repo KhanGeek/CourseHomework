@@ -23,6 +23,8 @@ public class MainCharacterController : MonoBehaviour
     private AICharacterMovementController _aiCharacterMovementController;
     
     private ICharacterMovomentController _currentCharacterMovomentController;
+    
+    private FirstAidKitSpawner _firstAidKitSpawner;
 
     private void Awake()
     {
@@ -35,6 +37,9 @@ public class MainCharacterController : MonoBehaviour
             _floorParrentGameObject);
 
         _currentCharacterMovomentController = _playerCharacterMovementController;
+
+        _firstAidKitSpawner =
+            new FirstAidKitSpawner(_firstAidKitSpawnRadius, _firstAidKitTimeToSpawn, _firstAidKitPrefab, _character);
     }
 
     private void Update()
@@ -45,6 +50,11 @@ public class MainCharacterController : MonoBehaviour
             _currentCharacterMovomentController = _playerCharacterMovementController;
 
         _currentCharacterMovomentController.Update();
+        
+        if(_playerInput.FirstAidKitSpawnerActive())
+            _firstAidKitSpawner.Activate();
+        else
+            _firstAidKitSpawner.Deactivate();
     }
 
     public bool TryGetMoveTargetPosition(out Vector3 position)

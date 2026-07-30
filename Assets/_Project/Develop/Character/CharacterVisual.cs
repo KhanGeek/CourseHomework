@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ public class CharacterVisual : MonoBehaviour
     private readonly int _velocity = Animator.StringToHash("Velocity");
     private readonly int _die = Animator.StringToHash("Die");
     private readonly int _hit = Animator.StringToHash("Hit");
+    private readonly int _jump = Animator.StringToHash("Jump");
 
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
 
@@ -22,7 +22,7 @@ public class CharacterVisual : MonoBehaviour
     {
         if (_isDie)
             return;
-
+        
         if (_character.IsDead)
         {
             Die();
@@ -32,6 +32,7 @@ public class CharacterVisual : MonoBehaviour
         if (_character.IsWounded)
             SetWounded();
 
+        _animator.SetBool(_jump, _character.IsJump);
         _animator.SetFloat(_velocity, _character.CurrentVelocity);
     }
 
@@ -39,6 +40,7 @@ public class CharacterVisual : MonoBehaviour
     {
         _animator.SetTrigger(_die);
         _isDie = true;
+        StartDissolve();
     }
 
     public void Hit()

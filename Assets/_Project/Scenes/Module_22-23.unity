@@ -2688,7 +2688,7 @@ GameObject:
   - component: {fileID: 188772363}
   - component: {fileID: 188772366}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14368,6 +14368,40 @@ MonoBehaviour:
   _healthVisual: {fileID: 188772366}
   _characterVisual: {fileID: 1848441459}
   _agent: {fileID: 1067510546}
+  _jumpSpeed: 10
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 23.242521
+      outSlope: 23.242521
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.11666667
+    - serializedVersion: 3
+      time: 0.5
+      value: 4
+      inSlope: -0.046434984
+      outSlope: -0.046434984
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.40833336
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -15.185686
+      outSlope: -15.185686
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05000019
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!136 &1067510549
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16890,6 +16924,7 @@ MonoBehaviour:
   _inputVisual: {fileID: 1277143773}
   _character: {fileID: 1067510548}
   _playerInput: {fileID: 1277143778}
+  _timeToSwitchControllerUponInactivity: 4
 --- !u!4 &1285780379
 Transform:
   m_ObjectHideFlags: 0

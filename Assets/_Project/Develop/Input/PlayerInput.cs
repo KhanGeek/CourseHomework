@@ -33,8 +33,8 @@ public class PlayerInput : MonoBehaviour
     }
 
     public bool FirstAidKitSpawnerActive() => _firstAidKitSpawnerActive;
-
-    public bool FirstAidKitSpawnerActiveChange() => Input.GetKeyDown(KeyCode.F);
     
     public float GetTimeTheLastClicked => _timeTheLastClicked;
+    
+    private bool FirstAidKitSpawnerActiveChange() => Input.GetKeyDown(KeyCode.F);
 }
