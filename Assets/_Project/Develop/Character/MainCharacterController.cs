@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainCharacterController : MonoBehaviour
@@ -15,6 +16,8 @@ public class MainCharacterController : MonoBehaviour
     
     [SerializeField] private Character _character;
     [SerializeField] private PlayerInput _playerInput;
+
+    [SerializeField] private float _timeToSwitchControllerUponInactivity;
     
     private PlayerCharacterMovementController _playerCharacterMovementController;
     private AICharacterMovementController _aiCharacterMovementController;
@@ -34,7 +37,15 @@ public class MainCharacterController : MonoBehaviour
         _currentCharacterMovomentController = _playerCharacterMovementController;
     }
 
-    private void Update() => _currentCharacterMovomentController.Update();
+    private void Update()
+    {
+        if (EnoughPlayerInactivityTime())
+            _currentCharacterMovomentController = _aiCharacterMovementController;
+        else
+            _currentCharacterMovomentController = _playerCharacterMovementController;
+
+        _currentCharacterMovomentController.Update();
+    }
 
     public bool TryGetMoveTargetPosition(out Vector3 position)
     {
@@ -45,6 +56,13 @@ public class MainCharacterController : MonoBehaviour
         }
 
         position = Vector3.zero;
+        return false;
+    }
+
+    private bool EnoughPlayerInactivityTime()
+    {
+        if(_playerInput.GetTimeTheLastClicked > _timeToSwitchControllerUponInactivity)
+            return true;
         return false;
     }
 }
