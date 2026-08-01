@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    private const int LeftMouseButton = 0;
+    
     [SerializeField] private InputVisual _visual;
 
     private bool _firstAidKitSpawnerActive;
@@ -11,14 +13,14 @@ public class PlayerInput : MonoBehaviour
     {
         _timeTheLastClicked += Time.deltaTime;
         
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(LeftMouseButton))
             _timeTheLastClicked = 0;
         
         if (FirstAidKitSpawnerActiveChange())
             _firstAidKitSpawnerActive = !_firstAidKitSpawnerActive;
     }
 
-    public bool HasAppearedNextTargetPoint() => Input.GetMouseButtonDown(0);
+    public bool HasAppearedNextTargetPoint() => Input.GetMouseButtonDown(LeftMouseButton);
 
     public bool TryGetNextTargetPoint(out Vector3 targetPoint)
     {
@@ -28,6 +30,7 @@ public class PlayerInput : MonoBehaviour
             
             return true;
         }
+        
         targetPoint = Vector3.zero;
         return false;
     }

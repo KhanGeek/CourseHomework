@@ -65,6 +65,8 @@ public class Character : MonoBehaviour, IDamageable, ITreatable
     public bool IsDead => _health.IsDead;
 
     public Vector3 GetEndPointPosition() => _agent.path.corners[_agent.path.corners.Length - 1];
+
+    public bool IsFootstep() => _agent.velocity.sqrMagnitude > 0.05;
     
     private bool IsOnMeshLink(out OffMeshLinkData offMeshLinkData)
     {

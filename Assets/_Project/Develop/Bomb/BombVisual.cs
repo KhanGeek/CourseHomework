@@ -6,6 +6,9 @@ public class BombVisual : MonoBehaviour
     
     [SerializeField] private ParticleSystem _particles;
     
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _audioClip;
+    
     private Renderer _renderer;
 
     private void Awake()
@@ -18,5 +21,6 @@ public class BombVisual : MonoBehaviour
     public void Explosion()
     {
         Instantiate(_particles, transform.position, Quaternion.identity);
+        _audioSource.PlayOneShot(_audioClip);
     }
 }

@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainCharacterController : MonoBehaviour
@@ -57,22 +55,15 @@ public class MainCharacterController : MonoBehaviour
             _firstAidKitSpawner.Deactivate();
     }
 
-    public bool TryGetMoveTargetPosition(out Vector3 position)
-    {
-        if (_currentCharacterMovomentController.IsMove)
-        {
-            position = _character.GetEndPointPosition();
-            return true;
-        }
-
-        position = Vector3.zero;
-        return false;
-    }
+    public Vector3 GetCharacterPosition() => _character.transform.position;
+    
+    public Vector3 GetCharacterEndPointPosition()  => _character.GetEndPointPosition();
 
     private bool EnoughPlayerInactivityTime()
     {
         if(_playerInput.GetTimeTheLastClicked > _timeToSwitchControllerUponInactivity)
             return true;
+        
         return false;
     }
 }
