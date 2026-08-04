@@ -12,6 +12,9 @@ public class Bomb : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        if (_countdown != null)
+            return;
+        
         IDamageable damageable = other.GetComponent<IDamageable>();
 
         if (damageable == null)
