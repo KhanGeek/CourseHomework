@@ -1,5 +1,6 @@
 public enum DestroyConditions 
 {
     IsDead,
-    AchievedMaxLifeTime
+    AchievedMaxLifeTime,
+    ExceededMaxEnemyCount
 }

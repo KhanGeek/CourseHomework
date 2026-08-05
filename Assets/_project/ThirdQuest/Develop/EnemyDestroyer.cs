@@ -7,6 +7,8 @@ public class EnemyDestroyer : MonoBehaviour
 {
     private List<Enemy> _enemies;
 
+    public int EnemyCount => _enemies.Count;
+
     private void Awake()
     {
         _enemies = new List<Enemy>();

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyCreator : MonoBehaviour
@@ -9,6 +8,7 @@ public class EnemyCreator : MonoBehaviour
     [SerializeField] private EnemyDestroyer _destroyer;
 
     [SerializeField] private float _maxLifeTime;
+    [SerializeField] private float _maxEnemyCount;
 
     private void Update()
     {
@@ -17,6 +17,9 @@ public class EnemyCreator : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Alpha2))
             CreateEnemy(DestroyConditions.AchievedMaxLifeTime);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha3))
+            CreateEnemy(DestroyConditions.ExceededMaxEnemyCount);
     }
 
     public void CreateEnemy(DestroyConditions destroyCondition)
@@ -31,6 +34,10 @@ public class EnemyCreator : MonoBehaviour
             
             case DestroyConditions.AchievedMaxLifeTime:
                 _destroyer.AddEnemy(enemy, () => enemy.LifeTime > _maxLifeTime);
+                break;
+            
+            case DestroyConditions.ExceededMaxEnemyCount:
+                _destroyer.AddEnemy(enemy, () => _destroyer.EnemyCount > _maxEnemyCount);
                 break;
         }
     }
