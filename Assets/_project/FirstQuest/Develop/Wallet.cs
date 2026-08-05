@@ -10,20 +10,12 @@ public class Wallet : MonoBehaviour
     public const string CoinsCurrencyName = "Coins";
     public const string DiamondsCurrencyName = "Diamonds";
     public const string EnergyCurrencyName = "Energy";
-
-    [SerializeField] private Sprite CoinsCurrencyIcon;
-    [SerializeField] private Sprite DiamondsCurrencyIcon;
-    [SerializeField] private Sprite EnergyCurrencyIcon;
     
     private List<Currency> _currencies;
 
-    public void Initialized()
+    private void Awake()
     {
         _currencies = new List<Currency>();
-        
-        AddCurrencyToWallet(CreateCurrency(CoinsCurrencyName));
-        AddCurrencyToWallet(CreateCurrency(DiamondsCurrencyName));
-        AddCurrencyToWallet(CreateCurrency(EnergyCurrencyName));
     }
 
     public void AddValue(int value, string currencyName)
@@ -39,7 +31,7 @@ public class Wallet : MonoBehaviour
             if (currency.Name == currencyName)
             {
                 currency.AddValue(value);
-                CurrencyValueChange?.Invoke(currencyName, value);
+                CurrencyValueChange?.Invoke(currencyName, currency.Value);
             }
         }
     }
@@ -58,35 +50,13 @@ public class Wallet : MonoBehaviour
                 if (currency.TrySubtractValue(value) == false)
                     Debug.LogWarning("SubtractValue - insufficient funds");
                 else
-                    CurrencyValueChange?.Invoke(currencyName, value);
+                    CurrencyValueChange?.Invoke(currencyName, currency.Value);
         }
     }
 
-    private void AddCurrencyToWallet(Currency currency)
+    public void AddCurrencyToWallet(Currency currency)
     {
         _currencies.Add(currency);
         NewCurrencyToWallet?.Invoke(currency.Name, currency.Icon, currency.Value);
-    }
-
-    private Currency CreateCurrency(string currencyName)
-    {
-        Sprite icon = default(Sprite);
-
-        switch (currencyName)
-        {
-            case CoinsCurrencyName:
-                icon = CoinsCurrencyIcon;
-                break;
-            
-            case DiamondsCurrencyName:
-                icon = DiamondsCurrencyIcon;
-                break;
-            
-            case EnergyCurrencyName:
-                icon = EnergyCurrencyIcon;
-                break;
-        }
-        
-        return new Currency(currencyName, icon);
     }
 }
