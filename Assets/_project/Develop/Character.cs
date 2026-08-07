@@ -19,6 +19,10 @@ public class Character : MonoBehaviour
     
     private Vector2 _velocity;
 
+    private bool _isDead;
+    
+    public bool IsDead => _isDead;
+
     public bool IsGrounded => _groundChecker.IsTouches;
     
     public bool IsWallTouches => _leftWallChecker.IsTouches || _rightWallChecker.IsTouches;
@@ -54,6 +58,12 @@ public class Character : MonoBehaviour
         HandleGravity();
         
         _rigidbody.velocity = _velocity;
+    }
+
+    public void Die()
+    {
+        _isDead = true;
+        gameObject.SetActive(false);
     }
 
     private void HandleGravity()
