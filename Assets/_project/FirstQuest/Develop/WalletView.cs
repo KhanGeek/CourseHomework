@@ -7,11 +7,11 @@ public class WalletView : MonoBehaviour
     [SerializeField] private CurrencyService _currencyService;
     [SerializeField] private CurrencyView _currencyViewPrefab;
 
-    private List<CurrencyView> _currencyViews;
+    private Dictionary<Currencies, CurrencyView> _currencyViews;
     
     private void Start()
     {
-        _currencyViews = new List<CurrencyView>();
+        _currencyViews = new Dictionary<Currencies, CurrencyView>();
         
         _currencyService.NewCurrencyAdded += OnNewCurrencyAdded;
         _currencyService.CurrencyValueChanged += OnCurrencyValueChanged;
@@ -20,9 +20,9 @@ public class WalletView : MonoBehaviour
     private void OnNewCurrencyAdded(Currencies type, int value)
     {
         CurrencyView currencyView = Instantiate(_currencyViewPrefab, transform);
-        currencyView.Initialize(type, value, GetIcon(type));
+        currencyView.Initialize(type.ToString(), value, GetIcon(type));
         
-        _currencyViews.Add(currencyView);
+        _currencyViews.Add(type, currencyView);
     }
 
     private void OnDestroy()
@@ -33,9 +33,8 @@ public class WalletView : MonoBehaviour
 
     private void OnCurrencyValueChanged(Currencies type, int value)
     {
-        foreach (CurrencyView currencyView in _currencyViews)
-            if(currencyView.Type == type)
-                currencyView.ChangeValue(value);
+        if(_currencyViews.TryGetValue(type, out CurrencyView currencyView))
+            currencyView.ChangeValue(value);
     }
 
     private Sprite GetIcon(Currencies type)
