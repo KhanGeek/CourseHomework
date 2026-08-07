@@ -24,10 +24,7 @@ public class EnemyMover : MonoBehaviour
         NextTargetPosition();
     }
 
-    private void Start()
-    {
-        StartCoroutine(MoveCorutine());
-    }
+    private void Start() => StartCoroutine(MoveCorutine());
 
     private void NextTargetPosition()
     {
