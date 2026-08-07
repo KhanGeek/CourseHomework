@@ -8,7 +8,7 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Transform _enemy;
     [SerializeField] private Transform _firstPoint;
     [SerializeField] private Transform _secondPoint;
-    
+
     [SerializeField] private float _speed;
     [SerializeField] private AnimationCurve _curve;
 
@@ -20,7 +20,7 @@ public class EnemyMover : MonoBehaviour
         _targetPositions = new Queue<Vector3>();
         _targetPositions.Enqueue(_firstPoint.position);
         _targetPositions.Enqueue(_secondPoint.position);
-        
+
         NextTargetPosition();
     }
 
@@ -39,16 +39,18 @@ public class EnemyMover : MonoBehaviour
     {
         while (true)
         {
-            float time = Vector3.Distance(_enemy.position, _currentTargetPosition) / _speed;
-            float duration = 0;
+            Vector3 startPosition = _enemy.position;
+            float duration = Vector3.Distance(_enemy.position, _currentTargetPosition) / _speed;
+            float time = 0;
 
-            while (duration<time)
+            while (duration > time)
             {
-                duration += Time.deltaTime;
-                _enemy.position=Vector3.Lerp(_enemy.position, _currentTargetPosition, _curve.Evaluate(duration/time));
+                time += Time.deltaTime;
+                _enemy.position = Vector3.Lerp(startPosition, _currentTargetPosition,
+                    _curve.Evaluate(time / duration));
                 yield return null;
             }
-            
+
             NextTargetPosition();
         }
     }

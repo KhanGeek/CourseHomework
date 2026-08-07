@@ -64,6 +64,7 @@ public class Character : MonoBehaviour
     {
         _isDead = true;
         gameObject.SetActive(false);
+        Debug.Log("Character is dead");
     }
 
     private void HandleGravity()
