@@ -7,16 +7,21 @@ public class CurrencyView : MonoBehaviour
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private TMP_Text _valueText;
     [SerializeField] private Image _icon;
+    
+    private Currencies _type;
 
-    public string Name => _nameText.text;
+    public Currencies Type => _type;
 
-    public void ChandeValue(int value) => _valueText.text = value.ToString();
+    public void ChangeValue(int value) => _valueText.text = value.ToString();
 
-    public void Initialized(string nameText, int value, Sprite icon)
+    public void Initialize(Currencies type, int value, Sprite icon)
     {
-        _nameText.text = nameText;
+        _type = type;
+        _nameText.text = type.ToString();
         _icon.sprite = icon;
 
-        ChandeValue(value);
+        ChangeValue(value);
     }
+    
+    
 }

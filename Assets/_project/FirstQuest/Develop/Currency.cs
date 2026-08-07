@@ -1,33 +1,21 @@
-using System;
-using UnityEngine;
-
 public class Currency
 {
-    private string _name;
+    private Currencies _type;
     private int _value;
 
-    private Sprite _icon; 
-
-    public Currency(string name, Sprite icon, int value = 0)
+    public Currency(Currencies type, int value = 0)
     {
-        _name = name;
-        _icon = icon;
+        _type = type;
         _value = value;
     }
 
     public int Value => _value;
-    public string Name => _name;
     
-    public Sprite Icon => _icon;
+    public Currencies Type => _type;
     
     public void AddValue(int value) => _value += value;
 
-    public bool TrySubtractValue(int value)
-    {
-        if (_value - value < 0)
-            return false;
-        
-        _value -= value;
-        return true;
-    }
+    public void SubtractValue(int value) => _value -= value;
+
+    public bool CanAfford(int value) => _value >= value;
 }

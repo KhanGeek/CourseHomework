@@ -2,23 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wallet : MonoBehaviour
+public class Wallet
 {
-    public event Action<String, Sprite, int> NewCurrencyToWallet;
-    public event Action<string, int> CurrencyValueChange;
-
-    public const string CoinsCurrencyName = "Coins";
-    public const string DiamondsCurrencyName = "Diamonds";
-    public const string EnergyCurrencyName = "Energy";
+    public event Action<Currencies, int> NewCurrencyAdded;
+    public event Action<Currencies, int> CurrencyValueChanged;
     
     private List<Currency> _currencies;
 
-    private void Awake()
+    public Wallet()
     {
         _currencies = new List<Currency>();
     }
 
-    public void AddValue(int value, string currencyName)
+    public void AddValue(int value, Currencies type)
     {
         if (value < 0)
         {
@@ -28,15 +24,15 @@ public class Wallet : MonoBehaviour
         
         foreach (Currency currency in _currencies)
         {
-            if (currency.Name == currencyName)
+            if (currency.Type == type)
             {
                 currency.AddValue(value);
-                CurrencyValueChange?.Invoke(currencyName, currency.Value);
+                CurrencyValueChanged?.Invoke(type, currency.Value);
             }
         }
     }
 
-    public void SubtractValue(int value, string currencyName)
+    public void SubtractValue(int value, Currencies type)
     {
         if (value < 0)
         {
@@ -46,17 +42,24 @@ public class Wallet : MonoBehaviour
 
         foreach (Currency currency in _currencies)
         {
-            if (currency.Name == currencyName)
-                if (currency.TrySubtractValue(value) == false)
-                    Debug.LogWarning("SubtractValue - insufficient funds");
+            if (currency.Type == type)
+            {
+                if (currency.CanAfford(value))
+                {
+                    currency.SubtractValue(value);
+                    CurrencyValueChanged?.Invoke(type, currency.Value);
+                }
                 else
-                    CurrencyValueChange?.Invoke(currencyName, currency.Value);
+                {
+                    Debug.LogWarning("SubtractValue - Value cannot afford value");
+                }
+            }
         }
     }
 
     public void AddCurrencyToWallet(Currency currency)
     {
         _currencies.Add(currency);
-        NewCurrencyToWallet?.Invoke(currency.Name, currency.Icon, currency.Value);
+        NewCurrencyAdded?.Invoke(currency.Type, currency.Value);
     }
 }
