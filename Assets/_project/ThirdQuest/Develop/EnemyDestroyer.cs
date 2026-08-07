@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDestroyer : MonoBehaviour
+public class EnemyDestroyer
 {
     private List<Enemy> _enemies;
+    private MonoBehaviour _monoBehaviour;
 
     public int EnemyCount => _enemies.Count;
 
-    private void Awake()
+    public EnemyDestroyer(MonoBehaviour monoBehaviour)
     {
+        _monoBehaviour = monoBehaviour;
+        
         _enemies = new List<Enemy>();
     }
 
@@ -18,14 +21,14 @@ public class EnemyDestroyer : MonoBehaviour
     {
         _enemies.Add(enemy);
 
-        StartCoroutine(DestroyCorutine(enemy, destroyCondition));
+        _monoBehaviour.StartCoroutine(DestroyCorutine(enemy, destroyCondition));
     }
     
     private IEnumerator DestroyCorutine(Enemy enemy, Func<bool> destroyCondition)
     {
         yield return new WaitUntil(destroyCondition.Invoke);
 
-        Destroy(enemy.gameObject);
+        GameObject.Destroy(enemy.gameObject);
         _enemies.Remove(enemy);
     }
 }

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EnemyCountView : MonoBehaviour
 {
-    [SerializeField] private EnemyDestroyer _destroyer;
+    [SerializeField] private EnemyCreator _creator;
     [SerializeField] private TMP_Text _text;
 
     private void Update()
     {
-        _text.text = _destroyer.EnemyCount.ToString();
+        _text.text = _creator.EnemyCount.ToString();
     }
 }

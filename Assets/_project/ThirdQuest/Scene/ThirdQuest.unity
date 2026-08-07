@@ -154,7 +154,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5185431028096734018, guid: 84d3def394d084f0fab51b676d9a950a,
     type: 3}
   _spawnParrent: {fileID: 954398198}
-  _destroyer: {fileID: 388883260}
   _maxLifeTime: 5
   _maxEnemyCount: 5
 --- !u!4 &129104893
@@ -181,27 +180,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 388883261}
-  - component: {fileID: 388883260}
   - component: {fileID: 388883262}
   m_Layer: 0
-  m_Name: Destroyer
+  m_Name: DestroyerView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &388883260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388883259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c77e211af44e4e068800d55957c5d10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &388883261
 Transform:
   m_ObjectHideFlags: 0
@@ -229,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b753fd4a1fedd40af92b340224b79d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyer: {fileID: 388883260}
+  _creator: {fileID: 129104892}
   _text: {fileID: 1018930924}
 --- !u!1 &954398197
 GameObject:
