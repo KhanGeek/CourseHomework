@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf74aa77cf7147ce88eea5f2d392d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timer: {fileID: 1858970229}
+  _timer: {fileID: 1858970231}
   _slider: {fileID: 585799559}
 --- !u!1 &800881382
 GameObject:
@@ -462,9 +462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608288af44e234d1d9aa8fd105e9bc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timer: {fileID: 1858970229}
+  _timer: {fileID: 1858970231}
   _heartPrefab: {fileID: 5785707543560606115, guid: 08f1b09c33d894868821fc5f296d0d26,
     type: 3}
+  _hearts: []
 --- !u!114 &1112949640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,7 +991,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858970230}
-  - component: {fileID: 1858970229}
   - component: {fileID: 1858970231}
   m_Layer: 0
   m_Name: Timer
@@ -999,18 +999,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1858970229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858970228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37773f0556e044fbf80047010a743fc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1858970230
 Transform:
   m_ObjectHideFlags: 0
@@ -1038,7 +1026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8700c145f5d740aabedabbc86e1e912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timer: {fileID: 1858970229}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

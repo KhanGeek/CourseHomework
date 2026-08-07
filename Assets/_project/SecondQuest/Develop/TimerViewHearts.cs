@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TimerViewHearts : MonoBehaviour
 {
-    [SerializeField] private Timer _timer;
+    [SerializeField] private TimerExample _timer;
     [SerializeField] private GameObject _heartPrefab;
 
     private int currentHeartCount;
@@ -12,15 +12,15 @@ public class TimerViewHearts : MonoBehaviour
     private void Start()
     {
         _hearts = new List<GameObject>();
-        _timer.TimeChanged += OnTimeChanged;
+        _timer.Changed += OnChanged;
     }
 
     private void OnDestroy()
     {
-        _timer.TimeChanged -= OnTimeChanged;
+        _timer.Changed -= OnChanged;
     }
 
-    private void OnTimeChanged(float currentTime, float startTime)
+    private void OnChanged(float currentTime)
     {
         currentHeartCount = Mathf.CeilToInt(currentTime);
 

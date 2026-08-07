@@ -1,8 +1,25 @@
+using System;
 using UnityEngine;
 
 public class TimerExample : MonoBehaviour
 {
-    [SerializeField] private Timer _timer;
+    public event Action<float> Started
+    {
+        add => _timer.Started += value;
+        remove => _timer.Started -= value;
+    }
+    public event Action<float> Changed
+    {
+        add => _timer.Changed += value;
+        remove => _timer.Changed -= value;
+    }
+    
+    private Timer _timer;
+
+    private void Awake()
+    {
+        _timer = new Timer(this);
+    }
 
     private void Update()
     {

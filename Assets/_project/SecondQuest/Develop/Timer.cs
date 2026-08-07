@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
-    public event Action<float, float> TimeChanged;
+    public event Action<float> Started; 
+    public event Action<float> Changed;
     
     private const int ZeroTime = 0;
 
@@ -13,6 +14,12 @@ public class Timer : MonoBehaviour
     private bool _isPaused;
 
     private Coroutine _coroutine;
+    private MonoBehaviour _monoBehaviour;
+
+    public Timer(MonoBehaviour monoBehaviour)
+    {
+        _monoBehaviour = monoBehaviour;
+    }
 
     public bool TryStartNew(float time, Action callbackFinishTimer = null)
     {
@@ -22,7 +29,7 @@ public class Timer : MonoBehaviour
             return false;
         }
 
-        _coroutine = StartCoroutine(TimerCoroutine(time, callbackFinishTimer));
+        _coroutine = _monoBehaviour.StartCoroutine(TimerCoroutine(time, callbackFinishTimer));
         return true;
     }
 
@@ -32,17 +39,17 @@ public class Timer : MonoBehaviour
 
     public void Clear()
     {
-        StopCoroutine(_coroutine);
+        _monoBehaviour.StopCoroutine(_coroutine);
         _coroutine = null;
         
-        TimeChanged?.Invoke(ZeroTime, ZeroTime);
+        Changed?.Invoke(ZeroTime);
     }
 
     private IEnumerator TimerCoroutine(float time, Action callback)
     {
         _isPaused = false;
         _startTime = _currentTime = time;
-        TimeChanged?.Invoke(_currentTime, _startTime);
+        Started?.Invoke(_startTime);
 
         while (_currentTime > ZeroTime)
         {
@@ -55,7 +62,7 @@ public class Timer : MonoBehaviour
 
             _currentTime -= Time.deltaTime;
 
-            TimeChanged?.Invoke(_currentTime, _startTime);
+            Changed?.Invoke(_currentTime);
         }
 
         callback?.Invoke();
