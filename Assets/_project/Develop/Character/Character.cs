@@ -6,26 +6,20 @@ public class Character : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpVelocity;
     [SerializeField] private float _gravity;
-    
-    [SerializeField] private ObstacleChecker _groundChecker;
-    [SerializeField] private ObstacleChecker _leftWallChecker;
-    [SerializeField] private ObstacleChecker _rightWallChecker;
+    [SerializeField] private float _wallGravityMultiplier;
+
+    [SerializeField] private Health _health;
+    [SerializeField] private ObstacleService _obstacleService;
     
     private IMoveInput _moveInput;
     private Rigidbody2D _rigidbody;
     
     private HorizontalMover _horizontalMover;
+    private HandleGravity _gravityHandle;
     private Jumper _jumper;
     
     private Vector2 _velocity;
-
-    private bool _isDead;
     
-    public bool IsDead => _isDead;
-
-    public bool IsGrounded => _groundChecker.IsTouches;
-    
-    public bool IsWallTouches => _leftWallChecker.IsTouches || _rightWallChecker.IsTouches;
     
     private void Awake()
     {
@@ -40,39 +34,34 @@ public class Character : MonoBehaviour
             Debug.LogError("Character needs a IMoveInput");
 
         _horizontalMover = new HorizontalMover(_moveSpeed);
-        _jumper = new Jumper(_jumpVelocity, this);
+        _jumper = new Jumper(_jumpVelocity, _obstacleService);
+        _gravityHandle = new HandleGravity(_obstacleService, _gravity, _wallGravityMultiplier);
 
         _moveInput.JumpRequested += _jumper.OnJump;
+        _health.Died += OnDied;
     }
 
     private void OnDestroy()
     {
         _moveInput.JumpRequested -= _jumper.OnJump;
+        _health.Died -= OnDied;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _velocity.x = _horizontalMover.GetVelocity(_moveInput.GetHorizontalInput()).x;
-        _velocity.y += _jumper.GetVelocity().y;
+        _velocity.y=_gravityHandle.Apply(_velocity.y, Time.fixedDeltaTime);
         
-        HandleGravity();
-        
+        if(_jumper.TryJump(out float velocityY))
+            _velocity.y = velocityY;
+
         _rigidbody.velocity = _velocity;
     }
 
-    public void Die()
+    private void OnDied()
     {
-        _isDead = true;
         gameObject.SetActive(false);
         Debug.Log("Character is dead");
     }
 
-    private void HandleGravity()
-    {
-        if (IsGrounded && _velocity.y <= 0)
-            _velocity.y = 0;
-        else if (IsWallTouches && _velocity.y <= 0)
-            _velocity.y -= _gravity/5 * Time.deltaTime;
-        else _velocity.y -= _gravity * Time.deltaTime;
-    }
 }
