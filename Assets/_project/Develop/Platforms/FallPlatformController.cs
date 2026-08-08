@@ -31,5 +31,6 @@ public class FallPlatformController : MonoBehaviour
         yield return new WaitForSeconds(_timeToRestart);
         
         _platformTransform.gameObject.SetActive(true);
+        _coroutine = null;
     }
 }
