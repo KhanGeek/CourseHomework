@@ -16,4 +16,6 @@ public class Health : MonoBehaviour
         _isDead = true;
         Died?.Invoke();
     }
+    
+    public void Ressurect() => _isDead = false;
 }

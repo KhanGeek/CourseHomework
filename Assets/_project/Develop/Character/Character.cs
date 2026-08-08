@@ -7,8 +7,7 @@ public class Character : MonoBehaviour
     [SerializeField] private float _jumpVelocity;
     [SerializeField] private float _gravity;
     [SerializeField] private float _wallGravityMultiplier;
-
-    [SerializeField] private Health _health;
+    
     [SerializeField] private ObstacleService _obstacleService;
     
     private IMoveInput _moveInput;
@@ -38,13 +37,11 @@ public class Character : MonoBehaviour
         _gravityHandle = new HandleGravity(_obstacleService, _gravity, _wallGravityMultiplier);
 
         _moveInput.JumpRequested += _jumper.OnJump;
-        _health.Died += OnDied;
     }
 
     private void OnDestroy()
     {
         _moveInput.JumpRequested -= _jumper.OnJump;
-        _health.Died -= OnDied;
     }
 
     private void FixedUpdate()
@@ -57,11 +54,4 @@ public class Character : MonoBehaviour
 
         _rigidbody.velocity = _velocity;
     }
-
-    private void OnDied()
-    {
-        gameObject.SetActive(false);
-        Debug.Log("Character is dead");
-    }
-
 }
