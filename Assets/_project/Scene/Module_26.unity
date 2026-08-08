@@ -8043,6 +8043,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fall Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 8631169102254682208, guid: 179488215718b4246bbc4f2e01e8b023,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
