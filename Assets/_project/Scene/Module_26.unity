@@ -7610,7 +7610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 9
   _jumpVelocity: 25
-  _gravity: 80
+  _gravity: 9
   _wallGravityMultiplier: 0.3
   _obstacleService: {fileID: 1204144582}
 --- !u!114 &1204144581
@@ -7927,7 +7927,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890777647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 

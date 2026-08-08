@@ -14,7 +14,7 @@ public class ObstacleChecker : MonoBehaviour
     {
         _filter = new ContactFilter2D
         {
-            useTriggers =  false,
+            useTriggers = false,
             useLayerMask = true,
             layerMask = _mask
         };
@@ -22,6 +22,11 @@ public class ObstacleChecker : MonoBehaviour
         _hits = new RaycastHit2D[1];
     }
 
-    public bool IsTouches => Physics2D.CapsuleCast(_collider.bounds.center, _collider.size,
-        _collider.direction, 0, _direction, _filter, _hits, _distanceToCheck) > 0;
+    //public bool IsTouches => Physics2D.CapsuleCast(_collider.bounds.center, _collider.size,
+    //_collider.direction, 0, _direction, _filter, _hits, _distanceToCheck) > 0;
+
+ //   public bool IsTouches => Physics2D.CapsuleCast(_collider.bounds.center, _collider.size,
+   //     _collider.direction, 0, _direction, _distanceToCheck, _mask);
+
+   public bool IsTouches => true;
 }

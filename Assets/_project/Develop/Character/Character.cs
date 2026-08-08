@@ -47,7 +47,7 @@ public class Character : MonoBehaviour
     private void FixedUpdate()
     {
         _velocity.x = _horizontalMover.GetVelocity(_moveInput.GetHorizontalInput()).x;
-        _velocity.y=_gravityHandle.Apply(_velocity.y, Time.fixedDeltaTime);
+        _velocity.y = _gravityHandle.Apply(_velocity.y, Time.fixedDeltaTime);
         
         if(_jumper.TryJump(out float velocityY))
             _velocity.y = velocityY;
