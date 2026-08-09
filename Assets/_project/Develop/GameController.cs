@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -8,6 +9,8 @@ public class GameController : MonoBehaviour
     
     private Health _characterHealth;
     private Resurrection _characterResurrection;
+
+    private float _timeToDie = 2f;
 
     private void Start()
     {
@@ -28,17 +31,20 @@ public class GameController : MonoBehaviour
         _characterHealth.Died -= OnDied;
     }
 
-    private void OnDied()
-    {
-        _character.gameObject.SetActive(false);
-        
-        _characterResurrection.Activate(Resurrection);
-    }
+    private void OnDied() => StartCoroutine(WaitBeforeDieCoroutine());
 
     private void Resurrection()
     {
         _character.transform.position = _startPoint.position;
         _characterHealth.Ressurect();
         _character.gameObject.SetActive(true);
+    }
+
+    private IEnumerator WaitBeforeDieCoroutine()
+    {
+        yield return new WaitForSeconds(_timeToDie);
+        
+        _character.gameObject.SetActive(false);
+        _characterResurrection.Activate(Resurrection);
     }
 }

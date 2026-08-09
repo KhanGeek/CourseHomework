@@ -19,6 +19,9 @@ public class Character : MonoBehaviour
     
     private Vector2 _velocity;
     
+    public Vector2 Velocity => _velocity;
+
+    public bool IsGround => _obstacleService.IsGrounded;
     
     private void Awake()
     {
