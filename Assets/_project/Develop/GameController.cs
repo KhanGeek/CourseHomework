@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
         _characterHealth.Died += OnDied;
 
         _characterResurrection = new Resurrection(_resurrectionTime, this);
+        
+        Resurrection();
     }
 
     private void OnDestroy()

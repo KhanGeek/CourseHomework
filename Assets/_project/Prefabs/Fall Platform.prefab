@@ -75,7 +75,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4651359641352332521, guid: a03e2f4153ed94118a0fc7c3ff9fd0d1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7763278106572188962}
+      addedObject: {fileID: 2913502600638530980}
     - targetCorrespondingSourceObject: {fileID: 4651359641352332521, guid: a03e2f4153ed94118a0fc7c3ff9fd0d1,
         type: 3}
       insertIndex: -1
@@ -97,7 +97,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3108911952639106648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7763278106572188962
+--- !u!114 &2913502600638530980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,13 +106,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7757978131618724529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5eecdde5a5cc4f9bbd8ae1915287243, type: 3}
+  m_Script: {fileID: 11500000, guid: c9ac4502f26c40d18b23700df000a896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToDeactivate: 2
-  _timeToRestart: 4
-  _platformTransform: {fileID: 3228956820205397951}
   _collisionReserver: {fileID: 5295713127677432326}
+  _platformEngineTransform: {fileID: 3228956820205397951}
+  _timeToDeactivate: 2
+  _timeToRestart: 3
 --- !u!61 &8631169102254682208
 BoxCollider2D:
   m_ObjectHideFlags: 0

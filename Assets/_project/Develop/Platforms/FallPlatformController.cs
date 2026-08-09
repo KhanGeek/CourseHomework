@@ -1,36 +1,43 @@
 using System.Collections;
 using UnityEngine;
 
-public class FallPlatformController : MonoBehaviour
+public class FallPlatformController : IReaction
 {
-    [SerializeField] private float _timeToDeactivate;
-    [SerializeField] private float _timeToRestart;
-    [SerializeField] private Transform _platformTransform;
-    [SerializeField] private CollisionReserver _collisionReserver;
-    
+    private float _timeToDeactivate;
+    private float _timeToRestart;
+    private Transform _platformEngineTransform;
+
+    private MonoBehaviour _coroutineStarter;
     private Coroutine _coroutine;
 
-    private void Start() => _collisionReserver.Activate += OnActivate;
+    public FallPlatformController(float timeToDeactivate, 
+        float timeToRestart, 
+        Transform platformEngineTransform, 
+        MonoBehaviour coroutineStarter)
+    {
+        _timeToDeactivate = timeToDeactivate;
+        _timeToRestart = timeToRestart;
+        _platformEngineTransform = platformEngineTransform;
+        _coroutineStarter = coroutineStarter;
+    }
 
-    private void OnDestroy() => _collisionReserver.Activate -= OnActivate;
-
-    private void OnActivate()
+    public void OnActivate()
     {
         if (_coroutine != null)
             return;
 
-        _coroutine = StartCoroutine(OnOffCoroutine());
+        _coroutine = _coroutineStarter.StartCoroutine(OnOffCoroutine());
     }
 
     private IEnumerator OnOffCoroutine()
     {
         yield return new WaitForSeconds(_timeToDeactivate);
         
-        _platformTransform.gameObject.SetActive(false);
+        _platformEngineTransform.gameObject.SetActive(false);
         
         yield return new WaitForSeconds(_timeToRestart);
         
-        _platformTransform.gameObject.SetActive(true);
+        _platformEngineTransform.gameObject.SetActive(true);
         _coroutine = null;
     }
 }

@@ -7513,7 +7513,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1204144577
 Transform:
   m_ObjectHideFlags: 0
@@ -7610,7 +7610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 9
   _jumpVelocity: 25
-  _gravity: 9
+  _gravity: 80
   _wallGravityMultiplier: 0.3
   _obstacleService: {fileID: 1204144582}
 --- !u!114 &1204144581
@@ -7662,6 +7662,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1552016435}
+  - component: {fileID: 1552016438}
   - component: {fileID: 1552016437}
   - component: {fileID: 1552016436}
   m_Layer: 0
@@ -7759,6 +7760,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1552016438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552016434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcba3c33833dc490c866e756ec0f5dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1870893290
 GameObject:
   m_ObjectHideFlags: 3
@@ -8010,7 +8023,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
