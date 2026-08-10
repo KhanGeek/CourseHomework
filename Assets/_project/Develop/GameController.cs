@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private float _resurrectionTime;
+    [SerializeField] private StartPointCameraController _startPointCamera;
     
     private Health _characterHealth;
     private Resurrection _characterResurrection;
@@ -31,19 +32,25 @@ public class GameController : MonoBehaviour
         _characterHealth.Died -= OnDied;
     }
 
-    private void OnDied() => StartCoroutine(WaitBeforeDieCoroutine());
+    private void OnDied()
+    {
+        StartCoroutine(WaitBeforeDieCoroutine());
+    }
 
     private void Resurrection()
     {
         _character.transform.position = _startPoint.position;
         _characterHealth.Ressurect();
         _character.gameObject.SetActive(true);
+        
+        _startPointCamera.Deactivate();
     }
 
     private IEnumerator WaitBeforeDieCoroutine()
     {
         yield return new WaitForSeconds(_timeToDie);
         
+        _startPointCamera.Activate();
         _character.gameObject.SetActive(false);
         _characterResurrection.Activate(Resurrection);
     }

@@ -22,6 +22,10 @@ public class Character : MonoBehaviour
     public Vector2 Velocity => _velocity;
 
     public bool IsGround => _obstacleService.IsGrounded;
+
+    private Quaternion TurnRight => Quaternion.identity;
+    
+    private Quaternion TurnLeft => Quaternion.Euler(0f, 180f, 0f);
     
     private void Awake()
     {
@@ -56,5 +60,18 @@ public class Character : MonoBehaviour
             _velocity.y = velocityY;
 
         _rigidbody.velocity = _velocity;
+
+        transform.rotation = GetRotateFrom(_velocity);
+    }
+
+    private Quaternion GetRotateFrom(Vector2 velocity)
+    {
+        if (velocity.x > 0)
+            return TurnRight;
+
+        if (velocity.x < 0)
+            return TurnLeft;
+
+        return transform.rotation;
     }
 }
