@@ -4,7 +4,7 @@ public class HandleGravity
     private float _wallGravityMultiplier;
     private float _gravity;
 
-    ObstacleService _obstacleService;
+    private ObstacleService _obstacleService;
 
     public HandleGravity(ObstacleService obstacleService, float gravity, float wallGravityMultiplier)
     {
@@ -16,6 +16,9 @@ public class HandleGravity
     public float Apply(float yVelocity, float deltaTime)
     {
         if (_obstacleService.IsGrounded && yVelocity <= 0f)
+            return 0f;
+
+        if (_obstacleService.IsTouchingCell && yVelocity > 0f)
             return 0f;
 
         float multiplier;
