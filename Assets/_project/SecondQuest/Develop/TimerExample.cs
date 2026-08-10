@@ -3,22 +3,17 @@ using UnityEngine;
 
 public class TimerExample : MonoBehaviour
 {
-    public event Action<float> Started
-    {
-        add => _timer.Started += value;
-        remove => _timer.Started -= value;
-    }
-    public event Action<float> Changed
-    {
-        add => _timer.Changed += value;
-        remove => _timer.Changed -= value;
-    }
+    [SerializeField] private TimerViewHearts _timerViewHearts;
+    [SerializeField] private TimerViewSlider _timerViewSlider;
     
     private Timer _timer;
 
     private void Awake()
     {
         _timer = new Timer(this);
+        
+        _timerViewHearts.Initialize(_timer);
+        _timerViewSlider.Initialize(_timer);
     }
 
     private void Update()

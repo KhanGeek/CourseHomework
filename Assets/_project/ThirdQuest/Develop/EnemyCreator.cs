@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemyCreator : MonoBehaviour
 {
+    [SerializeField] private EnemyCountView _enemyCountView;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Transform _spawnParrent;
     
@@ -10,12 +11,12 @@ public class EnemyCreator : MonoBehaviour
 
     [SerializeField] private float _maxLifeTime;
     [SerializeField] private float _maxEnemyCount;
-
-    public int EnemyCount => _destroyer.EnemyCount;
     
     private void Awake()
     {
         _destroyer = new EnemyDestroyer(this);
+        
+        _enemyCountView.Initialize(_destroyer);
     }
 
     private void Update()

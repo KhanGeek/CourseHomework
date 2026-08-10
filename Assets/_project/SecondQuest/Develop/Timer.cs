@@ -53,8 +53,6 @@ public class Timer
 
         while (_currentTime > ZeroTime)
         {
-            //yield return new WaitWhile(() => _isPaused); //слишком большая задержка. таймер тикал раза в 2 медленней(
-
             yield return null;
 
             if (_isPaused)

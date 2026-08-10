@@ -3,27 +3,16 @@ using UnityEngine;
 
 public class CurrencyService : MonoBehaviour
 {
-    public event Action<Currencies, int> NewCurrencyAdded
-    {
-        add => _wallet.NewCurrencyAdded+= value;
-        remove => _wallet.NewCurrencyAdded -= value;
-    }
-    
-    public event Action<Currencies, int> CurrencyValueChanged
-    {
-        add => _wallet.CurrencyValueChanged += value;
-        remove => _wallet.CurrencyValueChanged -= value;
-    }
+    [SerializeField] private WalletView _walletView;
     
     private Wallet _wallet;
 
-    private void Awake()
-    {
-        _wallet = new Wallet();
-    }
-
     private void Start()
     {
+        _wallet = new Wallet();
+        
+        _walletView.Initialize(_wallet);
+        
         _wallet.AddCurrencyToWallet(new Currency(Currencies.Coins));
         _wallet.AddCurrencyToWallet(new Currency(Currencies.Diamonds));
         _wallet.AddCurrencyToWallet(new Currency(Currencies.Energy));

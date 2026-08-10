@@ -3,21 +3,22 @@ using UnityEngine.UI;
 
 public class TimerViewSlider : MonoBehaviour
 {
-    [SerializeField] private TimerExample _timer;
+    private Timer _timer;
     [SerializeField] private Slider _slider;
     
     private float _startTime;
-
-    private void Start()
-    {
-        _timer.Changed += OnTimeChanged;
-        _timer.Started += OnStarted;
-    }
 
     private void OnDestroy()
     {
         _timer.Changed -= OnTimeChanged;
         _timer.Started -= OnStarted;
+    }
+
+    public void Initialize(Timer timer)
+    {
+        _timer = timer;
+        _timer.Changed += OnTimeChanged;
+        _timer.Started += OnStarted;
     }
 
     private void OnStarted(float startTime)

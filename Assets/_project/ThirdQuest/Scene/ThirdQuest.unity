@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e812a8cdf644f3481d49d0693796d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyCountView: {fileID: 388883262}
   _enemyPrefab: {fileID: 5185431028096734018, guid: 84d3def394d084f0fab51b676d9a950a,
     type: 3}
   _spawnParrent: {fileID: 954398198}

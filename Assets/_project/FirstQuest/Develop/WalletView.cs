@@ -4,19 +4,12 @@ using UnityEngine;
 public class WalletView : MonoBehaviour
 {
     [SerializeField] private List<CurrencyIcon> _currencyIcons;
-    [SerializeField] private CurrencyService _currencyService;
     [SerializeField] private CurrencyView _currencyViewPrefab;
+    
+    private Wallet _wallet;
 
     private Dictionary<Currencies, CurrencyView> _currencyViews;
     
-    private void Start()
-    {
-        _currencyViews = new Dictionary<Currencies, CurrencyView>();
-        
-        _currencyService.NewCurrencyAdded += OnNewCurrencyAdded;
-        _currencyService.CurrencyValueChanged += OnCurrencyValueChanged;
-    }
-
     private void OnNewCurrencyAdded(Currencies type, int value)
     {
         CurrencyView currencyView = Instantiate(_currencyViewPrefab, transform);
@@ -27,8 +20,17 @@ public class WalletView : MonoBehaviour
 
     private void OnDestroy()
     {
-        _currencyService.NewCurrencyAdded -= OnNewCurrencyAdded;
-        _currencyService.CurrencyValueChanged -= OnCurrencyValueChanged;
+        _wallet.NewCurrencyAdded -= OnNewCurrencyAdded;
+        _wallet.CurrencyValueChanged -= OnCurrencyValueChanged;
+    }
+
+    public void Initialize(Wallet wallet)
+    {
+        _currencyViews = new Dictionary<Currencies, CurrencyView>();
+        _wallet = wallet;
+        
+        _wallet.NewCurrencyAdded += OnNewCurrencyAdded;
+        _wallet.CurrencyValueChanged += OnCurrencyValueChanged;
     }
 
     private void OnCurrencyValueChanged(Currencies type, int value)

@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class TimerViewHearts : MonoBehaviour
 {
-    [SerializeField] private TimerExample _timer;
+    private Timer _timer;
     [SerializeField] private GameObject _heartPrefab;
 
     private int currentHeartCount;
     [SerializeField]private List<GameObject> _hearts;
-    
-    private void Start()
-    {
-        _hearts = new List<GameObject>();
-        _timer.Changed += OnChanged;
-    }
 
     private void OnDestroy()
     {
         _timer.Changed -= OnChanged;
+    }
+
+    public void Initialize(Timer timer)
+    {
+        _hearts = new List<GameObject>();
+        
+        _timer = timer;
+        _timer.Changed += OnChanged;
     }
 
     private void OnChanged(float currentTime)
