@@ -10,24 +10,24 @@ public class TimerViewSlider : MonoBehaviour
 
     private void OnDestroy()
     {
-        _timer.Changed -= OnTimeChanged;
-        _timer.Started -= OnStarted;
+        _timer.CurrentTime.Changed -= OnCurrentTimeChanged;
+        _timer.StartTime.Changed -= OnStartTimeChanged;
     }
 
     public void Initialize(Timer timer)
     {
         _timer = timer;
-        _timer.Changed += OnTimeChanged;
-        _timer.Started += OnStarted;
+        _timer.CurrentTime.Changed += OnCurrentTimeChanged;
+        _timer.StartTime.Changed += OnStartTimeChanged;
     }
 
-    private void OnStarted(float startTime)
+    private void OnStartTimeChanged(float startTime)
     {
         _startTime = startTime;
-        OnTimeChanged(_startTime);
+        OnCurrentTimeChanged(_startTime);
     }
 
-    private void OnTimeChanged(float currentTime)
+    private void OnCurrentTimeChanged(float currentTime)
     {
         if (currentTime > 0)
             _slider.value = currentTime / _startTime;

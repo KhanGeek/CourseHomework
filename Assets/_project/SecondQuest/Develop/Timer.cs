@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Timer
 {
-    public event Action<float> Started; 
-    public event Action<float> Changed;
-    
     private const int ZeroTime = 0;
 
-    private float _currentTime;
-    private float _startTime;
+    private ReactiveVariable<float> _currentTime;
+    private ReactiveVariable<float> _startTime;
     private bool _isPaused;
 
     private Coroutine _coroutine;
@@ -20,6 +17,10 @@ public class Timer
     {
         _monoBehaviour = monoBehaviour;
     }
+    
+    public IReadOnlyReactiveVariable<float> CurrentTime => _currentTime;
+    
+    public IReadOnlyReactiveVariable<float> StartTime => _startTime;
 
     public bool TryStartNew(float time, Action callbackFinishTimer = null)
     {
@@ -41,26 +42,23 @@ public class Timer
     {
         _monoBehaviour.StopCoroutine(_coroutine);
         _coroutine = null;
-        
-        Changed?.Invoke(ZeroTime);
+
+        _currentTime.Value = ZeroTime;
     }
 
     private IEnumerator TimerCoroutine(float time, Action callback)
     {
         _isPaused = false;
-        _startTime = _currentTime = time;
-        Started?.Invoke(_startTime);
+        _startTime.Value = _currentTime.Value = time;
 
-        while (_currentTime > ZeroTime)
+        while (_currentTime.Value > ZeroTime)
         {
             yield return null;
 
             if (_isPaused)
                 continue;
 
-            _currentTime -= Time.deltaTime;
-
-            Changed?.Invoke(_currentTime);
+            _currentTime.Value -= Time.deltaTime;
         }
 
         callback?.Invoke();

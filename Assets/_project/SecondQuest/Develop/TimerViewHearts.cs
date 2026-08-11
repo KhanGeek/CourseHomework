@@ -11,7 +11,7 @@ public class TimerViewHearts : MonoBehaviour
 
     private void OnDestroy()
     {
-        _timer.Changed -= OnChanged;
+        _timer.CurrentTime.Changed -= OnCurrentTimeChanged;
     }
 
     public void Initialize(Timer timer)
@@ -19,10 +19,10 @@ public class TimerViewHearts : MonoBehaviour
         _hearts = new List<GameObject>();
         
         _timer = timer;
-        _timer.Changed += OnChanged;
+        _timer.CurrentTime.Changed += OnCurrentTimeChanged;
     }
 
-    private void OnChanged(float currentTime)
+    private void OnCurrentTimeChanged(float currentTime)
     {
         currentHeartCount = Mathf.CeilToInt(currentTime);
 

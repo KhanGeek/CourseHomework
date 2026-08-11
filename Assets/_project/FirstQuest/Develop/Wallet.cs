@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Wallet
 {
-    public event Action<Currencies, int> NewCurrencyAdded;
-    public event Action<Currencies, int> CurrencyValueChanged;
+    public event Action<Currencies, IReadOnlyReactiveVariable<int>> NewCurrencyAdded;
     
     private List<Currency> _currencies;
 
@@ -27,7 +26,6 @@ public class Wallet
             if (currency.Type == type)
             {
                 currency.AddValue(value);
-                CurrencyValueChanged?.Invoke(type, currency.Value);
             }
         }
     }
@@ -47,7 +45,6 @@ public class Wallet
                 if (currency.CanAfford(value))
                 {
                     currency.SubtractValue(value);
-                    CurrencyValueChanged?.Invoke(type, currency.Value);
                 }
                 else
                 {
