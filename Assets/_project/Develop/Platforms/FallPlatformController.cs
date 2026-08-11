@@ -21,7 +21,7 @@ public class FallPlatformController : IReaction
         _coroutineStarter = coroutineStarter;
     }
 
-    public void OnActivate()
+    public void OnActivated()
     {
         if (_coroutine != null)
             return;

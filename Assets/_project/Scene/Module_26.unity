@@ -7399,6 +7399,7 @@ GameObject:
   - component: {fileID: 502115827}
   - component: {fileID: 502115830}
   - component: {fileID: 502115831}
+  - component: {fileID: 502115832}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7449,7 +7450,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 5.125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7558,6 +7559,30 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &502115832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502115826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 32
+  m_RefResolutionX: 320
+  m_RefResolutionY: 180
+  m_CropFrame: 0
+  m_GridSnapping: 0
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1001 &506567551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8176,6 +8201,7 @@ MonoBehaviour:
   _jumpVelocity: 25
   _gravity: 80
   _wallGravityMultiplier: 0.3
+  _health: {fileID: 1204144583}
   _obstacleService: {fileID: 1204144582}
 --- !u!114 &1204144581
 MonoBehaviour:
@@ -8657,6 +8683,7 @@ GameObject:
   - component: {fileID: 1890777649}
   - component: {fileID: 1890777648}
   - component: {fileID: 1890777650}
+  - component: {fileID: 1890777651}
   m_Layer: 0
   m_Name: PlayerTargetCamera
   m_TagString: Untagged
@@ -8735,6 +8762,18 @@ MonoBehaviour:
   m_Damping: 0.5
   m_MaxWindowSize: -1
   m_Padding: 0
+--- !u!114 &1890777651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890777647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1922242165
 GameObject:
   m_ObjectHideFlags: 0

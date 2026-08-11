@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     [SerializeField] private float _jumpVelocity;
     [SerializeField] private float _gravity;
     [SerializeField] private float _wallGravityMultiplier;
+    [SerializeField] private Health _health;
     
     [SerializeField] private ObstacleService _obstacleService;
     
@@ -53,11 +54,19 @@ public class Character : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _velocity.x = _horizontalMover.GetVelocity(_moveInput.GetHorizontalInput()).x;
-        _velocity.y = _gravityHandle.Apply(_velocity.y, Time.fixedDeltaTime);
+        if (_health.IsDead==false)
+        {
+            _velocity.x = _horizontalMover.GetVelocity(_moveInput.GetHorizontalInput()).x;
+            _velocity.y = _gravityHandle.Apply(_velocity.y, Time.fixedDeltaTime);
         
-        if(_jumper.TryJump(out float velocityY))
-            _velocity.y = velocityY;
+            if(_jumper.TryJump(out float velocityY))
+                _velocity.y = velocityY;
+        }
+        else
+        {
+            _velocity.x = 0;
+            _velocity.y = 0;
+        }
 
         _rigidbody.velocity = _velocity;
 

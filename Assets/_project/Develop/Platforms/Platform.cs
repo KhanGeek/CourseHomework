@@ -14,11 +14,11 @@ public class Platform: MonoBehaviour
         _platformReaction =
             new FallPlatformController(_timeToDeactivate, _timeToRestart, _platformEngineTransform, this);
 
-        _collisionReserver.Activate += _platformReaction.OnActivate;
+        _collisionReserver.Activated += _platformReaction.OnActivated;
     }
 
     private void OnDestroy()
     {
-        _collisionReserver.Activate -= _platformReaction.OnActivate;
+        _collisionReserver.Activated -= _platformReaction.OnActivated;
     }
 }

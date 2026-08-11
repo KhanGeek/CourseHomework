@@ -1,4 +1,4 @@
 public interface IReaction
 {
-    void OnActivate();
+    void OnActivated();
 }
