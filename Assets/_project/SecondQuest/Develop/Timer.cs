@@ -6,8 +6,8 @@ public class Timer
 {
     private const int ZeroTime = 0;
 
-    private ReactiveVariable<float> _currentTime;
-    private ReactiveVariable<float> _startTime;
+    private ReactiveVariable<float> _currentTime = new();
+    private ReactiveVariable<float> _startTime = new();
     private bool _isPaused;
 
     private Coroutine _coroutine;
