@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,6 +25,9 @@ public class Inventory
 
     public bool CanAddItem(int count)
     {
+        if (count < 0)
+            throw new ArgumentOutOfRangeException("Аргумент не может быть отрицательным!");
+        
         if (_maxSize - CurrentSize < count)
         {
             Debug.Log("не хватает места в инвентаре!");
@@ -68,6 +72,9 @@ public class Inventory
 
     public bool CanRemoveItem(Item item, int count)
     {
+        if (count < 0)
+            throw new ArgumentOutOfRangeException("Аргумент не может быть отрицательным!");
+        
         if (GetSelectedNameSlots(item.Name).Sum(slot => slot.Count) >= count)
             return true;
         
