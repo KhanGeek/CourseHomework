@@ -15,7 +15,7 @@ public class Inventory
     
     public Inventory(List<Slot> slots, int maxSize)
     {
-        _slots = slots;
+        _slots = new List<Slot>(slots);
         _maxSize = maxSize;
     }
 
@@ -25,7 +25,7 @@ public class Inventory
 
     public bool CanAddItem(int count)
     {
-        if (count < 0)
+        if (count <= 0)
             throw new ArgumentOutOfRangeException("Аргумент не может быть отрицательным!");
         
         if (_maxSize - CurrentSize < count)
@@ -40,10 +40,7 @@ public class Inventory
     public void AddItem(Item item, int count)
     {
         if (CanAddItem(count) == false)
-        {
-            Debug.LogError("Попытка превысить вместимость инвентаря!");
-            return;
-        }
+            throw new Exception("Не проведена проверка CanAddItem");
         
         List<Slot> slots = GetSelectedNameSlots(item.Name);
 
@@ -72,7 +69,7 @@ public class Inventory
 
     public bool CanRemoveItem(Item item, int count)
     {
-        if (count < 0)
+        if (count <= 0)
             throw new ArgumentOutOfRangeException("Аргумент не может быть отрицательным!");
         
         if (GetSelectedNameSlots(item.Name).Sum(slot => slot.Count) >= count)
@@ -85,7 +82,7 @@ public class Inventory
     public void RemoveItem(Item item, int count)
     {
         if(CanRemoveItem(item, count) == false)
-            return;
+            throw new Exception("Не проведена проверка CanRemoveItem");
         
         List<Slot> slots = GetSelectedNameSlots(item.Name);
 
