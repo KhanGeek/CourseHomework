@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TimerViewSlider : MonoBehaviour
 {
-    private Timer _timer;
+    private IReadonlyTimer _timer;
     [SerializeField] private Slider _slider;
     
     private float _startTime;
@@ -14,7 +14,7 @@ public class TimerViewSlider : MonoBehaviour
         _timer.StartTime.Changed -= OnStartTimeChanged;
     }
 
-    public void Initialize(Timer timer)
+    public void Initialize(IReadonlyTimer timer)
     {
         _timer = timer;
         _timer.CurrentTime.Changed += OnCurrentTimeChanged;

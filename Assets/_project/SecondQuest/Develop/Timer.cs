@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Timer
+public class Timer: IReadonlyTimer
 {
     private const int ZeroTime = 0;
 
