@@ -19,7 +19,12 @@ public class Character : MonoBehaviour, IDamageble
         
         isInitialized = true;
 
-        GetComponentInChildren<HealthView>().Initialize(_health);//не придумал как сделать красивше(
+        HealthView healthView = GetComponentInChildren<HealthView>();//не придумал как сделать красивше(
+        
+        if (healthView == null)
+            throw new Exception("HealthView component not found");
+        
+        healthView.Initialize(_health);
     }
 
     private void Awake()
@@ -36,10 +41,14 @@ public class Character : MonoBehaviour, IDamageble
             return;
 
         _rigidbody.MovePosition(_rigidbody.position + (_direction * _speed * Time.fixedDeltaTime));
-        _rigidbody.MoveRotation(Quaternion.LookRotation(_direction));
+        _rigidbody.MoveRotation(Quaternion.LookRotation(_direction, Vector3.up));
     }
 
-    public void SetDirection(Vector3 direction) => _direction = direction.normalized;
-    
+    public void SetDirection(Vector3 direction)
+    {
+        direction.y = 0;
+        _direction = direction.normalized;
+    }
+
     public void TakeDamage(float damage) => _health.TakeDamage(damage);
 }

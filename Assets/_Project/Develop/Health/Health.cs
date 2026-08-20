@@ -8,7 +8,7 @@ public class Health : IReadOnlyHealth
     private float _currentHealth;
     private float _maxHealth;
 
-    public Health(float maxHealth) => _maxHealth = maxHealth;
+    public Health(float maxHealth) => _maxHealth = _currentHealth = maxHealth;
 
     public float MaxHealth => _maxHealth;
 

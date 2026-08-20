@@ -24,9 +24,13 @@ public class Bootstrap : MonoBehaviour
         _controllersFactory =new ControllersFactory(_characterFactory);
         _updateService = new UpdateService();
 
-        _gameLoop = new GameLoop(_updateService, _controllersFactory);
+        Timer timer = new Timer(this);
+
+        _gameLoop = new GameLoop(_updateService, _controllersFactory, timer);
 
         yield return _gameLoop.Preparation();
+
+        yield return new WaitForSeconds(2f);
         
         _loadingPopup.Hide();
     }

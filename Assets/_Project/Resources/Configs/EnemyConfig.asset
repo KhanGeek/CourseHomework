@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af937de34a844ceaf4a2d4fd9532176, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
-  CharacterPrefab: {fileID: 8387182700400657848, guid: 66ce229f115bb45b2b1090e18b52ac50,
+  CharacterPrefab: {fileID: 8387182700400657848, guid: ccceb6ea055774f3fb1817be0305fc8c,
     type: 3}
   Speed: 9
   MaxHealth: 100

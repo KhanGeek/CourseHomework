@@ -6,10 +6,12 @@ public class HealthView : MonoBehaviour
     [SerializeField] private Image _healthBar;
 
     private IReadOnlyHealth _health;
+    private Transform _cameraTransform;
 
     public void Initialize(IReadOnlyHealth health)
     {
         _health = health;
+        _cameraTransform = Camera.main.transform;
 
         _health.ChangeHealth += OnChangeHealth;
 
@@ -18,7 +20,7 @@ public class HealthView : MonoBehaviour
 
     private void OnDestroy() => _health.ChangeHealth -= OnChangeHealth;
 
-    private void Update() => transform.LookAt(Camera.main.transform);
+    private void Update() => transform.rotation = _cameraTransform.rotation;
 
     private void OnChangeHealth(float currentHealth) => _healthBar.fillAmount = currentHealth / _health.MaxHealth;
 }
