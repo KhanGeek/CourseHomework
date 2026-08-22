@@ -5,6 +5,7 @@ public class FireBall:MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _impulseForce;
     [SerializeField] private float _damage;
+    [SerializeField] private ParticleSystem _explosionParticle;
 
     public void Fire()
     {
@@ -15,7 +16,9 @@ public class FireBall:MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent(out IDamageble damageable))
             damageable.TakeDamage(_damage);
-            
+
+        Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 }

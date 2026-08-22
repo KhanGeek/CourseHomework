@@ -51,6 +51,8 @@ MonoBehaviour:
   _rigidbody: {fileID: -956510281992179941}
   _impulseForce: 50
   _damage: 50
+  _explosionParticle: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+    type: 3}
 --- !u!33 &6875627275870255490
 MeshFilter:
   m_ObjectHideFlags: 0
