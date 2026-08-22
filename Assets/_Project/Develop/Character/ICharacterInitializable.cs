@@ -1,4 +1,4 @@
-public interface ICharacterInizializable
+public interface ICharacterInitializable
 {
     void Initialize(Character character);
 }

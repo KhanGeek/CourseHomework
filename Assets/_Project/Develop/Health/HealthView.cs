@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthView : MonoBehaviour, ICharacterInizializable
+public class HealthView : MonoBehaviour, ICharacterInitializable
 {
     [SerializeField] private Image _healthBar;
 

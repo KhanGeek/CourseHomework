@@ -17,9 +17,9 @@ public class Character : MonoBehaviour, IDamageble
         _speed = speed;
         _health = health;
 
-        ICharacterInizializable[] characterInizializables = GetComponentsInChildren<ICharacterInizializable>();
+        ICharacterInitializable[] characterInizializables = GetComponentsInChildren<ICharacterInitializable>();
         
-        foreach (ICharacterInizializable characterInizializable in characterInizializables)
+        foreach (ICharacterInitializable characterInizializable in characterInizializables)
             characterInizializable.Initialize(this);
         
         isInitialized = true;
