@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthView : MonoBehaviour
+public class HealthView : MonoBehaviour, ICharacterInizializable
 {
     [SerializeField] private Image _healthBar;
 
     private IReadOnlyHealth _health;
     private Transform _cameraTransform;
 
-    public void Initialize(IReadOnlyHealth health)
+    public void Initialize(Character character)
     {
-        _health = health;
+        _health = character.Health;
         _cameraTransform = Camera.main.transform;
 
         _health.ChangeHealth += OnChangeHealth;

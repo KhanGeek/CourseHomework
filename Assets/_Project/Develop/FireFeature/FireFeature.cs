@@ -4,21 +4,18 @@ using Object = UnityEngine.Object;
 public class FireFeature : IFeature
 {
     private FireBall _fireBallPrefab;
-    private Transform _spawnPoint;
 
-    public FireFeature(Transform spawnPoint)
+    public FireFeature()
     {
-        _spawnPoint = spawnPoint;
-        
         _fireBallPrefab = Resources.Load<FireBall>("Prefabs/FireBall");
     }
 
-    public void Activate()
+    public void Activate(Transform spawnPoint)
     {
         FireBall fireBall = Object.Instantiate(
             _fireBallPrefab,
-            _spawnPoint.position + _spawnPoint.forward,
-            _spawnPoint.rotation);
+            spawnPoint.position + spawnPoint.forward,
+            spawnPoint.rotation);
         
         fireBall.Fire();
     }

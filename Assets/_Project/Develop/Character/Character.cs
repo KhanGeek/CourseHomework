@@ -16,16 +16,16 @@ public class Character : MonoBehaviour, IDamageble
     {
         _speed = speed;
         _health = health;
+
+        ICharacterInizializable[] characterInizializables = GetComponentsInChildren<ICharacterInizializable>();
+        
+        foreach (ICharacterInizializable characterInizializable in characterInizializables)
+            characterInizializable.Initialize(this);
         
         isInitialized = true;
-
-        HealthView healthView = GetComponentInChildren<HealthView>();//не придумал как сделать красивше(
-        
-        if (healthView == null)
-            throw new Exception("HealthView component not found");
-        
-        healthView.Initialize(_health);
     }
+
+    public IReadOnlyHealth Health => _health;
 
     private void Awake()
     {

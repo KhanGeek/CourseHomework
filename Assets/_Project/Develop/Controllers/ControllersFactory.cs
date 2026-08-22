@@ -5,48 +5,51 @@ using Object = UnityEngine.Object;
 
 public class ControllersFactory
 {
-    private CharacterFactory _characterFactory;
     private CharacterConfig _enemyConfig;
+    private CharacterFactory _characterFactory;
 
     public ControllersFactory(CharacterFactory characterFactory)
     {
         _characterFactory = characterFactory;
-        
         _enemyConfig = Resources.Load<CharacterConfig>("Configs/EnemyConfig");
 
         if (_enemyConfig == null)
             throw new Exception("EnemyConfig not found");
     }
 
-    public PlayerController CreatePlayerController(Vector3 spawnPosition)
+    public PlayerController CreatePlayerController(Character character, IMovementInput movementInput)
     {
-        CharacterConfig characterConfig = Resources.Load<CharacterConfig>("Configs/PlayerConfig");
-        
-        if(characterConfig == null)
-            throw new Exception("PlayerConfig not found");
-
-        PlayerInput playerInput = new PlayerInput();
-        
         PlayerController playerController = new PlayerController(
-            _characterFactory.CreateCharacter(spawnPosition, characterConfig),
-            playerInput, playerInput);
-        
-        playerController.SetFeature(new FireFeature(playerController.CharacterTransform));
+            character,
+            movementInput);
         
         CinemachineVirtualCamera playerCameraPrefab = Resources.Load<CinemachineVirtualCamera>("Prefabs/PlayerCamera");
         CinemachineVirtualCamera playerCamera = Object.Instantiate(playerCameraPrefab);
-        playerCamera.Follow = playerController.CharacterTransform;
+        playerCamera.Follow = character.transform;
 
         return playerController;
     }
 
+    public FeatureController CreateFeatureController(Character character, IFeatureActivator featureActivator)
+    {
+        FeatureController featureController = new FeatureController(featureActivator, character);
+        
+        featureController.SetFeature(new FireFeature());
+        
+        return featureController;
+    }
+
     public EnemyController CreateEnemyController(Vector3 spawnPosition, LevelBound levelBound, Timer timer)
     {
+        Character enemy = _characterFactory.CreateCharacter(spawnPosition, _enemyConfig);
+        
         EnemyController enemyController = new EnemyController(
-            _characterFactory.CreateCharacter(spawnPosition, _enemyConfig),
+            enemy,
             levelBound,
             timer,
             _enemyConfig.TimeToNextTarget);
+        
+        enemy.gameObject.AddComponent<DamageDealing>().Initialize(_enemyConfig.Damage);
 
         return enemyController;
     }

@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IFeature
 {
-    void Activate();
+    void Activate(Transform spawnPoint);
 }

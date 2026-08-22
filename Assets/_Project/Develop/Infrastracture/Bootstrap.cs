@@ -26,7 +26,12 @@ public class Bootstrap : MonoBehaviour
 
         Timer timer = new Timer(this);
 
-        _gameLoop = new GameLoop(_updateService, _controllersFactory, timer);
+        _gameLoop = new GameLoop(
+            _updateService, 
+            _controllersFactory, 
+            timer, 
+            _characterFactory, 
+            this);
 
         yield return _gameLoop.Preparation();
 

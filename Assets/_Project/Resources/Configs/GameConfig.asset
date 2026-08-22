@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af937de34a844ceaf4a2d4fd9532176, type: 3}
-  m_Name: PlayerConfig
+  m_Script: {fileID: 11500000, guid: 456a8137894a4254b28c27a4dae003ee, type: 3}
+  m_Name: GameConfig
   m_EditorClassIdentifier: 
-  CharacterPrefab: {fileID: 8387182700400657848, guid: 66ce229f115bb45b2b1090e18b52ac50,
-    type: 3}
-  Speed: 9
-  MaxHealth: 100
-  TimeToNextTarget: 0
-  Damage: 10
+  VictoryCondition: 0
+  VictoryValue: 0
+  DefeatCondition: 0
+  DefeatValue: 0

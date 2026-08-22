@@ -7,13 +7,17 @@ public class UpdateService
     public void Add(IUpdatable updatable)
     {
         _updatables.Add(updatable);
-        updatable.Destroy += OnDestroy;
+        
+        if(updatable is IDestroyable destroyable)
+            destroyable.Destroy += OnDestroy;
     }
 
-    private void OnDestroy(IUpdatable updatable)
+    private void OnDestroy(IDestroyable destroyable)
     {
-        updatable.Destroy -= OnDestroy;
-        _updatables.Remove(updatable);
+        destroyable.Destroy -= OnDestroy;
+
+        if (destroyable is IUpdatable updatable)
+            _updatables.Remove(updatable);
     }
 
     public void Update(float deltaTime)

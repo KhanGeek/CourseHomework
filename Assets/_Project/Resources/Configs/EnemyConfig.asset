@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   Speed: 9
   MaxHealth: 100
+  TimeToNextTarget: 2
+  Damage: 10

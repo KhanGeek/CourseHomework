@@ -8,4 +8,5 @@ public class CharacterConfig : ScriptableObject
     public float MaxHealth = 100;
     
     public float TimeToNextTarget = 5f;
+    public float Damage = 10;
 }
