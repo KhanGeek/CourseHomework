@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456a8137894a4254b28c27a4dae003ee, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  VictoryCondition: 0
-  VictoryValue: 0
+  VictoryCondition: 1
+  VictoryValue: 1
   DefeatCondition: 0
-  DefeatValue: 0
+  DefeatValue: 5
+  TimeToEnemySpawn: 2

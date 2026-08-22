@@ -39,7 +39,7 @@ public class ControllersFactory
         return featureController;
     }
 
-    public EnemyController CreateEnemyController(Vector3 spawnPosition, LevelBound levelBound, Timer timer)
+    public EnemyController CreateEnemyController(Vector3 spawnPosition, LevelBound levelBound, Timer timer, Action killAction)
     {
         Character enemy = _characterFactory.CreateCharacter(spawnPosition, _enemyConfig);
         
@@ -47,7 +47,8 @@ public class ControllersFactory
             enemy,
             levelBound,
             timer,
-            _enemyConfig.TimeToNextTarget);
+            _enemyConfig.TimeToNextTarget,
+            killAction);
         
         enemy.gameObject.AddComponent<DamageDealing>().Initialize(_enemyConfig.Damage);
 

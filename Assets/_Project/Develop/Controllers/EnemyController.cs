@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : Controller
@@ -10,13 +11,20 @@ public class EnemyController : Controller
     private float _timeToNextTarget;
 
     private float _minDistanceToTarget = 1f;
+    
+    private Action _deathAction;
 
-    public EnemyController(Character character, LevelBound levelBound, Timer timer, float timeToNextTarget) :
+    public EnemyController(Character character, 
+        LevelBound levelBound, 
+        Timer timer, 
+        float timeToNextTarget,
+        Action deathAction):
         base(character)
     {
         _levelBound = levelBound;
         _timer = timer;
         _timeToNextTarget = timeToNextTarget;
+        _deathAction = deathAction;
 
         SetNewTargetPosition();
     }
@@ -36,5 +44,11 @@ public class EnemyController : Controller
         _currentTarget = _levelBound.GetRandomPosition();
 
         _timer.Start(_timeToNextTarget, SetNewTargetPosition);
+    }
+
+    protected override void OnDeath()
+    {
+        _deathAction?.Invoke();
+        base.OnDeath();
     }
 }

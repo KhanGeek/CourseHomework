@@ -28,8 +28,5 @@ public abstract class Controller : IUpdatable, IDisposable, IDestroyable
         Object.Destroy(_character.gameObject);
     }
 
-    private void OnDeath()
-    {
-        Dispose();
-    }
+    protected virtual void OnDeath() => Dispose();
 }

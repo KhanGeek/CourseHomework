@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +13,7 @@ public class EnemySpawner: IDisposable
     private LevelBound _levelBound;
     private Timer _timer;
     private MonoBehaviour _coroutineStarter;
+    private Action _destroyAction;
     
     private Coroutine _spawnCoroutine;
     private List<EnemyController> _enemyControllers = new();
@@ -23,7 +23,8 @@ public class EnemySpawner: IDisposable
         UpdateService updateService,
         LevelBound levelBound,
         Timer timer,
-        MonoBehaviour coroutineStarter)
+        MonoBehaviour coroutineStarter, 
+        Action destroyAction)
     {
         _timeToSpawn = new WaitForSeconds(timeToSpawn);
         _controllersFactory = controllersFactory;
@@ -31,6 +32,7 @@ public class EnemySpawner: IDisposable
         _levelBound = levelBound;
         _timer = timer;
         _coroutineStarter = coroutineStarter;
+        _destroyAction = destroyAction;
 
         GameObject.FindWithTag("EnemySpawnPoints").TryGetComponent(out SpawnPoints spawnPoints);
 
@@ -51,7 +53,10 @@ public class EnemySpawner: IDisposable
             yield return _timeToSpawn;
 
             EnemyController enemyController = _controllersFactory.CreateEnemyController(
-                GetRandomSpawnPoint(), _levelBound, _timer);
+                GetRandomSpawnPoint(), 
+                _levelBound, 
+                _timer, 
+                _destroyAction);
             
             _enemyControllers.Add(enemyController);
             enemyController.Destroy += OnDestroy;

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: -956510281992179941}
   _impulseForce: 50
-  _damage: 100
+  _damage: 50
 --- !u!33 &6875627275870255490
 MeshFilter:
   m_ObjectHideFlags: 0

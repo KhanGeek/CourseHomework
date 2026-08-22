@@ -16,9 +16,7 @@ public class GameLoop
     private EnemySpawner _enemySpawner;
     private PlayerController _playerController;
     
-    private bool _isGamePlaying;
-
-    private Action _winRule;
+    private int _playerKillCount;
     
     public GameLoop(UpdateService updateService, 
         ControllersFactory controllersFactory, 
@@ -38,6 +36,8 @@ public class GameLoop
             throw new Exception("GameConfig not found");
     }
 
+    public bool IsGamePlaying { get; private set; }
+
     public IEnumerator Preparation()
     {
         yield return SceneManager.LoadSceneAsync("Level1", LoadSceneMode.Additive);
@@ -55,49 +55,44 @@ public class GameLoop
             _updateService, 
             levelBound,
             _timer,
-            _coroutineStarter);
+            _coroutineStarter,
+            AddKillCount);
+        
+        Start();
     }
 
-    public void SetGameRule()
+    private void Win()
     {
-        switch (_gameConfig.VictoryCondition)
-        {
-            case VictoryCondition.KillEnemies:
-                
-                break;
-            
-            case VictoryCondition.SurviveForSeconds:
-                
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException("VictoryCondition");
-        }
-
-        switch (_gameConfig.DefeatCondition)
-        {
-            case DefeatCondition.PlayerDied:
-                
-                break;
-            
-            case DefeatCondition.MoreThanEnemies:
-                
-                break;
-            
-            default:
-                throw new ArgumentOutOfRangeException("DefeatCondition");
-        }
+        Stop();
+        Debug.Log("Вы выйграли!");
     }
 
+    private void Defeat()
+    {
+        Stop();
+        Debug.Log("Вы проиграли!");
+    }
+    
     private void Stop()
     {
+        IsGamePlaying = false;
         _playerController.Dispose();
         _enemySpawner.Dispose();
     }
 
     private void Start()
     {
-        _isGamePlaying = true;
+        GameRules gameRules = new GameRules();
+
+        _coroutineStarter.StartCoroutine(
+            gameRules.GameRuleCoroutine(
+                GetWinGameRule(_gameConfig.VictoryCondition), Win));
+        
+        _coroutineStarter.StartCoroutine(
+            gameRules.GameRuleCoroutine(
+                GetDefeatGameRule(_gameConfig.DefeatCondition), Defeat));
+        
+        IsGamePlaying = true;
     }
 
     private IEnumerator CreatePlayer()
@@ -119,5 +114,49 @@ public class GameLoop
         _updateService.Add(_controllersFactory.CreateFeatureController(player, playerInput));
 
         yield return null;
+    }
+
+    private void AddKillCount() => _playerKillCount++;
+
+    private Func<bool> GetWinGameRule(VictoryCondition condition)
+    {
+        Func<bool> winGameRule;
+        
+        switch (condition)
+        {
+            case VictoryCondition.KillEnemies:
+                winGameRule = () => _playerKillCount >= _gameConfig.VictoryValue;
+                break;
+
+            case VictoryCondition.SurviveForSeconds:
+                winGameRule = () => _playerController.CurrentGameTime >= _gameConfig.VictoryValue;
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException("VictoryCondition");
+        }
+
+        return winGameRule;
+    }
+    
+    private Func<bool> GetDefeatGameRule(DefeatCondition condition)
+    {
+        Func<bool>  defeatGameRule;
+        
+        switch (condition)
+        {
+            case DefeatCondition.PlayerDied:
+                defeatGameRule = () => _playerController.IsDead;
+                break;
+
+            case DefeatCondition.MoreThanEnemies:
+                defeatGameRule = () => _enemySpawner.Count >= _gameConfig.DefeatValue;
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException("DefeatCondition");
+        }
+
+        return defeatGameRule;
     }
 }
