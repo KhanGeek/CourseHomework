@@ -89,6 +89,12 @@ public class GameLoop
         }
     }
 
+    private void Stop()
+    {
+        _playerController.Dispose();
+        _enemySpawner.Dispose();
+    }
+
     private void Start()
     {
         _isGamePlaying = true;
