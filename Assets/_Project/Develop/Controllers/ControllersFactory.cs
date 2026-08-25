@@ -5,16 +5,13 @@ using Object = UnityEngine.Object;
 
 public class ControllersFactory
 {
-    private CharacterConfig _enemyConfig;
     private CharacterFactory _characterFactory;
+    private ResourcesLoadService _resourcesLoadService;
 
-    public ControllersFactory(CharacterFactory characterFactory)
+    public ControllersFactory(CharacterFactory characterFactory, ResourcesLoadService resourcesLoadService)
     {
         _characterFactory = characterFactory;
-        _enemyConfig = Resources.Load<CharacterConfig>("Configs/EnemyConfig");
-
-        if (_enemyConfig == null)
-            throw new Exception("EnemyConfig not found");
+        _resourcesLoadService = resourcesLoadService;
     }
 
     public PlayerController CreatePlayerController(Character character, IMovementInput movementInput)
@@ -22,8 +19,8 @@ public class ControllersFactory
         PlayerController playerController = new PlayerController(
             character,
             movementInput);
-        
-        CinemachineVirtualCamera playerCameraPrefab = Resources.Load<CinemachineVirtualCamera>("Prefabs/PlayerCamera");
+
+        CinemachineVirtualCamera playerCameraPrefab = _resourcesLoadService.LoadCinemachineCameraPrefab();
         CinemachineVirtualCamera playerCamera = Object.Instantiate(playerCameraPrefab);
         playerCamera.Follow = character.transform;
 
@@ -34,23 +31,25 @@ public class ControllersFactory
     {
         FeatureController featureController = new FeatureController(featureActivator, character);
         
-        featureController.SetFeature(new FireFeature());
+        featureController.SetFeature(new FireFeature(_resourcesLoadService.LoadFireBallPrefab()));
         
         return featureController;
     }
 
     public EnemyController CreateEnemyController(Vector3 spawnPosition, LevelBound levelBound, Timer timer, Action killAction)
     {
-        Character enemy = _characterFactory.CreateCharacter(spawnPosition, _enemyConfig);
+        CharacterConfig enemyConfig = _resourcesLoadService.LoadEnemyConfig();
+        
+        Character enemy = _characterFactory.CreateCharacter(spawnPosition, enemyConfig);
         
         EnemyController enemyController = new EnemyController(
             enemy,
             levelBound,
             timer,
-            _enemyConfig.TimeToNextTarget,
+            enemyConfig.TimeToNextTarget,
             killAction);
         
-        enemy.gameObject.AddComponent<DamageDealing>().Initialize(_enemyConfig.Damage);
+        enemy.gameObject.AddComponent<DamageDealing>().Initialize(enemyConfig.Damage);
 
         return enemyController;
     }

@@ -14,6 +14,7 @@ public class EnemySpawner: IDisposable
     private Timer _timer;
     private MonoBehaviour _coroutineStarter;
     private Action _destroyAction;
+    private ObjectSearchService _searchService;
     
     private Coroutine _spawnCoroutine;
     private List<EnemyController> _enemyControllers = new();
@@ -24,7 +25,8 @@ public class EnemySpawner: IDisposable
         LevelBound levelBound,
         Timer timer,
         MonoBehaviour coroutineStarter, 
-        Action destroyAction)
+        Action destroyAction, 
+        ObjectSearchService searchService)
     {
         _timeToSpawn = new WaitForSeconds(timeToSpawn);
         _controllersFactory = controllersFactory;
@@ -33,13 +35,10 @@ public class EnemySpawner: IDisposable
         _timer = timer;
         _coroutineStarter = coroutineStarter;
         _destroyAction = destroyAction;
+        _searchService = searchService;
 
-        GameObject.FindWithTag("EnemySpawnPoints").TryGetComponent(out SpawnPoints spawnPoints);
 
-        if (spawnPoints == null)
-            throw new Exception("SpawnPoints not found");
-
-        _spawnPoints = new List<Vector3>(spawnPoints.GetSpawnPoints);
+        _spawnPoints = _searchService.FindSpawnPoints();
 
         _spawnCoroutine = _coroutineStarter.StartCoroutine(EnemySpawnCoroutine());
     }

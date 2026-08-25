@@ -5,9 +5,9 @@ public class FireFeature : IFeature
 {
     private FireBall _fireBallPrefab;
 
-    public FireFeature()
+    public FireFeature(FireBall fireBallPrefab)
     {
-        _fireBallPrefab = Resources.Load<FireBall>("Prefabs/FireBall");
+        _fireBallPrefab = fireBallPrefab;
     }
 
     public void Activate(Transform spawnPoint)

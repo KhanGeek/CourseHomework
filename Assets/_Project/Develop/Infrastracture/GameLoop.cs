@@ -2,38 +2,41 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 public class GameLoop
 {
     private GameConfig _gameConfig;
-    private ControllersFactory _controllersFactory;    
-    private CharacterFactory _characterFactory;
+    private ControllersFactory _controllersFactory;  
     private UpdateService _updateService;
     private Timer _timer;
     private MonoBehaviour _coroutineStarter;
 
     private EnemySpawner _enemySpawner;
     private PlayerController _playerController;
+    private PlayerFactory _playerFactory;
     
     private int _playerKillCount;
+    
+    private ObjectSearchService _searchService;
+    private ResourcesLoadService _resourcesLoadService;
     
     public GameLoop(UpdateService updateService, 
         ControllersFactory controllersFactory, 
         Timer timer, 
-        CharacterFactory characterFactory, 
-        MonoBehaviour coroutineStarter)
+        MonoBehaviour coroutineStarter, 
+        ObjectSearchService searchService, 
+        ResourcesLoadService resourcesLoadService, 
+        PlayerFactory playerFactory)
     {
         _updateService = updateService;
         _controllersFactory = controllersFactory;
         _timer = timer;
-        _characterFactory = characterFactory;
         _coroutineStarter = coroutineStarter;
+        _searchService = searchService;
+        _resourcesLoadService = resourcesLoadService;
+        _playerFactory = playerFactory;
 
-        _gameConfig = Resources.Load<GameConfig>("Configs/GameConfig");
-        
-        if(_gameConfig == null)
-            throw new Exception("GameConfig not found");
+        _gameConfig = _resourcesLoadService.LoadGameConfig();
     }
 
     public bool IsGamePlaying { get; private set; }
@@ -41,11 +44,6 @@ public class GameLoop
     public IEnumerator Preparation()
     {
         yield return SceneManager.LoadSceneAsync("Level1", LoadSceneMode.Additive);
-
-        LevelBound levelBound = Object.FindObjectOfType<LevelBound>();
-
-        if (levelBound == null)
-            throw new Exception("Level bound not found");
         
         yield return CreatePlayer();
 
@@ -53,10 +51,11 @@ public class GameLoop
             _gameConfig.TimeToEnemySpawn, 
             _controllersFactory, 
             _updateService, 
-            levelBound,
+            _searchService.FindLevelBound(),
             _timer,
             _coroutineStarter,
-            AddKillCount);
+            AddKillCount,
+            _searchService);
         
         Start();
     }
@@ -97,21 +96,7 @@ public class GameLoop
 
     private IEnumerator CreatePlayer()
     {
-        CharacterConfig characterConfig = Resources.Load<CharacterConfig>("Configs/PlayerConfig");
-        
-        if(characterConfig == null)
-            throw new Exception("PlayerConfig not found");
-
-        Character player =
-            _characterFactory.CreateCharacter(GameObject.FindWithTag("PlayerStartPoint").transform.position,
-                characterConfig);
-
-        PlayerInput playerInput = new PlayerInput();
-
-        _playerController = _controllersFactory.CreatePlayerController(player, playerInput);
-        _updateService.Add(_playerController);
-        
-        _updateService.Add(_controllersFactory.CreateFeatureController(player, playerInput));
+        _playerController = _playerFactory.CreatePlayer();
 
         yield return null;
     }
